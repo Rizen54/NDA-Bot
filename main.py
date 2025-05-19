@@ -19,7 +19,13 @@ intents.message_content = True # Required to read msg content
 bot = commands.Bot(command_prefix="-", help_command=None, intents=intents)
 
 
-TEST_GUILD_IDS = [1244267678831476756]  # put your test guild IDs here
+OWNER_ID = 1244264038117146674
+TEST_GUILD_IDS = [1244267678831476756]
+
+
+#To check if command author is rizen before running (for cog commands etc)
+def is_owner(ctx):
+    return ctx.author.id == OWNER_ID
 
 @bot.event
 async def on_ready():
@@ -36,6 +42,70 @@ async def on_ready():
         print(f"✅ Synced commands to guild {guild_id}")
     print("All test guilds synced!")
     print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
+
+
+# OWNER ONLY COMMANDS
+# Load cog
+@commands.command(name="load")
+@commands.check(is_owner)
+async def load_cog(ctx, extension: str):
+    try:
+        await ctx.bot.load_extension(f"cogs.{extension}")
+        await ctx.send(f"✅ Loaded `cogs.{extension}` successfully.")
+    except Exception as e:
+        await ctx.send(f"⚠️ Failed to load cog:\n```{e}```")
+
+
+# Unload cog
+@commands.command(name="unload")
+@commands.check(is_owner)
+async def unload_cog(ctx, extension: str):
+    try:
+        await ctx.bot.unload_extension(f"cogs.{extension}")
+        await ctx.send(f"✅ Unloaded `cogs.{extension}` successfully.")
+    except Exception as e:
+        await ctx.send(f"⚠️ Failed to unload cog:\n```{e}```")
+
+
+# Reload cog
+@commands.command(name="reload")
+@commands.check(is_owner)
+async def reload_cog(ctx, extension: str):
+    try:
+        await ctx.bot.reload_extension(f"cogs.{extension}")
+        await ctx.send(f"♻️ Reloaded `cogs.{extension}` successfully.")
+    except Exception as e:
+        await ctx.send(f"⚠️ Failed to reload cog:\n```{e}```")
+
+
+# Reload all cogs
+@commands.command(name="reloadall")
+@commands.check(is_owner)
+async def reload_all_cogs(ctx):
+    import os
+    reloaded = []
+    failed = []
+
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            cog = f"cogs.{filename[:-3]}"
+            try:
+                await ctx.bot.reload_extension(cog)
+                reloaded.append(cog)
+            except Exception as e:
+                failed.append((cog, str(e)))
+
+    embed = discord.Embed(title="♻️ Reloaded Cogs", color=discord.Color.gold())
+    if reloaded:
+        embed.add_field(name="✅ Success", value="\n".join(reloaded), inline=False)
+    if failed:
+        embed.add_field(
+            name="❌ Failed",
+            value="\n".join(f"{name} - `{err}`" for name, err in failed),
+            inline=False
+        )
+
+    await ctx.send(embed=embed)
 
 
 # Command: Kick a member
@@ -144,4 +214,7 @@ bot.add_command(ban)
 bot.add_command(unban)
 bot.add_command(purge)
 bot.add_command(helpcomm)
+bot.add_command(load_cog)
+bot.add_command(unload_cog)
+bot.add_command(reload_all_cogs)
 bot.run(token)
