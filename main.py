@@ -108,6 +108,26 @@ async def reload_all_cogs(ctx):
     await ctx.send(embed=embed)
 
 
+# Command: List loaded cogs
+@commands.command(name="listcogs", aliases=["cogs", "loaded"])
+@commands.check(is_owner)
+async def list_cogs(ctx):
+    loaded = list(ctx.bot.extensions.keys())
+
+    if not loaded:
+        await ctx.send("⚠️ No cogs are currently loaded.")
+        return
+
+    embed = discord.Embed(
+        title="🧠 Loaded Cogs",
+        description="\n".join(f"✅ `{cog}`" for cog in loaded),
+        color=discord.Color.green()
+    )
+    embed.set_footer(text=f"Total: {len(loaded)} cogs")
+    
+    await ctx.send(embed=embed)
+
+
 # Command: Kick a member
 @commands.hybrid_command(name="kick", description="Kick a member from the server")
 @commands.has_permissions(kick_members=True)
