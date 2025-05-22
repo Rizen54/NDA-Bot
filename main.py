@@ -6,7 +6,7 @@ import os
 
 # Load .env token
 load_dotenv()
-token = os.getenv('DISCORD_TOKEN')
+token = os.getenv("DISCORD_TOKEN")
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -19,55 +19,43 @@ intents.message_content = True  # Required to read message content
 bot = commands.Bot(command_prefix="-", help_command=None, intents=intents)
 
 OWNER_ID = 1244264038117146674
-GUILD_IDS = [1244267678831476756]
+
 
 # To check if command author is the owner before running (for cog commands etc)
 def is_owner(ctx):
     return ctx.author.id == OWNER_ID
 
-@bot.event
-async def on_ready():
-    # Load cogs
-    await bot.load_extension("cogs.prep")
-    await bot.load_extension("cogs.moderation")  # Load moderation cog
 
-    # Change presence
+async def load_all_cogs(bot: commands.Bot):
+    for filename in os.listdir("cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
+            print(f"✅ {filename[:-3]}")
+
+
+async def setup_presence(bot: commands.Bot):
     await bot.change_presence(
         activity=discord.Activity(
-            type=discord.ActivityType.competing,
-            name=f"with yall for NDA"
+            type=discord.ActivityType.competing, name=f"with yall for NDA"
         )
     )
 
-    # Sync slash commands to listed guilds
-    for guild_id in GUILD_IDS:
-        guild = discord.Object(id=guild_id)
-        await bot.tree.sync(guild=guild)
-        print(f"✅ Synced commands to guild {guild_id}")
-    print("All test guilds synced!")
+
+@bot.event
+async def setup_hook():
+    print("Loading cogs...")
+    await load_all_cogs(bot)
+    # await setup_presence(bot)
     print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
 
-    print("Registered slash commands:")
-    for cmd in bot.tree.get_commands():
-        print(f"  - {cmd.name}")
 
 # OWNER ONLY COMMANDS
 @commands.command(name="sync")
 @commands.is_owner()
 async def sync(ctx):
-    synced_total = 0
-    for gid in GUILD_IDS:
-        try:
-            guild = discord.Object(id=gid)
-            synced = await ctx.bot.tree.sync(guild=guild)
-            await ctx.send(f"✅ Synced {len(synced)} commands to guild `{gid}`")
-            synced_total += len(synced)
-        except Exception as e:
-            await ctx.send(f"❌ Failed to sync guild `{gid}`: {e}")
-    await ctx.send(f"🔁 Done syncing to all listed guilds! `Total commands synced: {synced_total}`")
-    print("Registered slash commands:")
-    for cmd in bot.tree.get_commands():
-        print(f"  - {cmd.name}")
+    await bot.tree.sync()
+    await ctx.reply("Syncing commands now...")
+
 
 @commands.command(name="load")
 @commands.check(is_owner)
@@ -78,6 +66,7 @@ async def load_cog(ctx, extension: str):
     except Exception as e:
         await ctx.send(f"⚠️ Failed to load cog:\n```{e}```")
 
+
 @commands.command(name="unload")
 @commands.check(is_owner)
 async def unload_cog(ctx, extension: str):
@@ -86,6 +75,7 @@ async def unload_cog(ctx, extension: str):
         await ctx.send(f"✅ Unloaded `cogs.{extension}` successfully.")
     except Exception as e:
         await ctx.send(f"⚠️ Failed to unload cog:\n```{e}```")
+
 
 @commands.command(name="reload")
 @commands.check(is_owner)
@@ -96,15 +86,17 @@ async def reload_cog(ctx, extension: str):
     except Exception as e:
         await ctx.send(f"⚠️ Failed to reload cog:\n```{e}```")
 
+
 @commands.command(name="reloadall")
 @commands.check(is_owner)
 async def reload_all_cogs(ctx):
     import os
+
     reloaded = []
     failed = []
 
-    for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
             cog = f"cogs.{filename[:-3]}"
             try:
                 await ctx.bot.reload_extension(cog)
@@ -119,10 +111,11 @@ async def reload_all_cogs(ctx):
         embed.add_field(
             name="❌ Failed",
             value="\n".join(f"{name} - `{err}`" for name, err in failed),
-            inline=False
+            inline=False,
         )
 
     await ctx.send(embed=embed)
+
 
 @commands.command(name="listcogs", aliases=["cogs", "loaded"])
 @commands.check(is_owner)
@@ -135,18 +128,16 @@ async def list_cogs(ctx):
     embed = discord.Embed(
         title="🧠 Loaded Cogs",
         description="\n".join(f"✅ `{cog}`" for cog in loaded),
-        color=discord.Color.green()
+        color=discord.Color.green(),
     )
     embed.set_footer(text=f"Total: {len(loaded)} cogs")
     await ctx.send(embed=embed)
 
-# Register owner commands to the bot
-bot.add_command(sync)
-bot.add_command(load_cog)
-bot.add_command(unload_cog)
-bot.add_command(reload_cog)
-bot.add_command(reload_all_cogs)
-bot.add_command(list_cogs)
+
+owner_commands = [sync, load_cog, unload_cog, reload_cog, reload_all_cogs, list_cogs]
+for cog in owner_commands:
+    bot.add_command(cog)
+
 
 # Error handler for missing permissions and arguments
 @bot.event
@@ -157,5 +148,6 @@ async def on_command_error(ctx, error):
         await ctx.send("Missing required argument.")
     else:
         raise error  # For unexpected errors, raise normally
+
 
 bot.run(token)
