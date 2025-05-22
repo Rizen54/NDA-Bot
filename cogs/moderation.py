@@ -12,7 +12,11 @@ class Moderation(commands.Cog):
     @app_commands.command(name="kick", description="Kick a member from the server")
     @app_commands.checks.has_permissions(kick_members=True)
     async def kick(
-        self, interaction: discord.Interaction, member: discord.Member, *, reason=None
+        self,
+        interaction: discord.Interaction,
+        member: discord.Member,
+        *,
+        reason: str = None,
     ):
         await interaction.response.defer()
         await member.kick(reason=reason)
@@ -36,7 +40,7 @@ class Moderation(commands.Cog):
         interaction: discord.Interaction,
         member: discord.Member,
         *,
-        reason="No reason provided",
+        reason: str = "No reason provided",
     ):
         await interaction.response.defer()
         await member.ban(reason=reason)

@@ -19,7 +19,6 @@ intents.message_content = True  # Required to read message content
 bot = commands.Bot(command_prefix="-", help_command=None, intents=intents)
 
 OWNER_ID = 1244264038117146674
-GUILD_IDS = [1244267678831476756]
 
 
 # To check if command author is the owner before running (for cog commands etc)
@@ -27,51 +26,35 @@ def is_owner(ctx):
     return ctx.author.id == OWNER_ID
 
 
-@bot.event
-async def on_ready():
-    # Load cogs
-    await bot.load_extension("cogs.prep")
-    await bot.load_extension("cogs.moderation")  # Load moderation cog
+async def load_all_cogs(bot: commands.Bot):
+    for filename in os.listdir("cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
+            print(f"✅ {filename[:-3]}")
 
-    # Change presence
+
+async def setup_presence(bot: commands.Bot):
     await bot.change_presence(
         activity=discord.Activity(
             type=discord.ActivityType.competing, name=f"with yall for NDA"
         )
     )
 
-    # Sync slash commands to listed guilds
-    for guild_id in GUILD_IDS:
-        guild = discord.Object(id=guild_id)
-        await bot.tree.sync(guild=guild)
-        print(f"✅ Synced commands to guild {guild_id}")
-    print("All test guilds synced!")
-    print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
 
-    print("Registered slash commands:")
-    for cmd in bot.tree.get_commands():
-        print(f"  - {cmd.name}")
+@bot.event
+async def setup_hook():
+    print("Loading cogs...")
+    await load_all_cogs(bot)
+    # await setup_presence(bot)
+    print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
 
 
 # OWNER ONLY COMMANDS
 @commands.command(name="sync")
 @commands.is_owner()
 async def sync(ctx):
-    synced_total = 0
-    for gid in GUILD_IDS:
-        try:
-            guild = discord.Object(id=gid)
-            synced = await ctx.bot.tree.sync(guild=guild)
-            await ctx.send(f"✅ Synced {len(synced)} commands to guild `{gid}`")
-            synced_total += len(synced)
-        except Exception as e:
-            await ctx.send(f"❌ Failed to sync guild `{gid}`: {e}")
-    await ctx.send(
-        f"🔁 Done syncing to all listed guilds! `Total commands synced: {synced_total}`"
-    )
-    print("Registered slash commands:")
-    for cmd in bot.tree.get_commands():
-        print(f"  - {cmd.name}")
+    await bot.tree.sync()
+    await ctx.reply("Syncing commands now...")
 
 
 @commands.command(name="load")
@@ -151,13 +134,9 @@ async def list_cogs(ctx):
     await ctx.send(embed=embed)
 
 
-# Register owner commands to the bot
-bot.add_command(sync)
-bot.add_command(load_cog)
-bot.add_command(unload_cog)
-bot.add_command(reload_cog)
-bot.add_command(reload_all_cogs)
-bot.add_command(list_cogs)
+owner_commands = [sync, load_cog, unload_cog, reload_cog, reload_all_cogs, list_cogs]
+for cog in owner_commands:
+    bot.add_command(cog)
 
 
 # Error handler for missing permissions and arguments

@@ -36,7 +36,7 @@ class Prep(commands.Cog):
             value="https://tranquilizer014.blogspot.com/2025/02/combined-defence-services-cds.html",
             inline=True,
         )
-        embed.set_footer(name="By", value="Tranquilizer", inline=True)
+        embed.set_footer(text="By Tranquilizer")
         await interaction.response.send_message(embed=embed)
 
     @app_commands.command(
@@ -53,9 +53,7 @@ class Prep(commands.Cog):
             value="https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki/",
             inline=True,
         )
-        embed.set_footer(
-            name="By", value="the great contributors of NDATards", inline=True
-        )
+        embed.set_footer(text="By the great contributors of NDATards")
         await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="mock", description="Get links to online NDA mock tests")
