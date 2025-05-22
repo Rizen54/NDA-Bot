@@ -8,51 +8,62 @@ import asyncio
 class Prep(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.tree.add_command(self.ban_cmd)
 
-
-    @commands.hybrid_command(name="nda", description="Get an in-depth NDA guide")
-    async def nda_guide(self, ctx):
+    @app_commands.command(name="nda", description="Get an in-depth NDA guide")
+    async def nda_guide(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📚 NDA Guide",
             description="Here is an in-depth nda guide:",
-            color=discord.Color.blue()
+            color=discord.Color.blue(),
         )
-        embed.add_field(name="Link:", value="https://tranquilizer014.blogspot.com/2025/02/nda-national-defence-academy-entry.html", inline=True)
+        embed.add_field(
+            name="Link:",
+            value="https://tranquilizer014.blogspot.com/2025/02/nda-national-defence-academy-entry.html",
+            inline=True,
+        )
         embed.add_field(name="By", value="Tranquilizer", inline=True)
-        await ctx.send(embed=embed)
+        await interaction.response.send_message(embed=embed)
 
-    
-    @commands.hybrid_command(name="cds", description="Get an in-depth CDS guide")
-    async def cds_guide(self, ctx):
+    @app_commands.command(name="cds", description="Get an in-depth CDS guide")
+    async def cds_guide(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📚 CDS Guide",
             description="Here is an in-depth CDS guide:",
-            color=discord.Color.blue()
+            color=discord.Color.blue(),
         )
-        embed.add_field(name="Link:", value="https://tranquilizer014.blogspot.com/2025/02/combined-defence-services-cds.html", inline=True)
+        embed.add_field(
+            name="Link:",
+            value="https://tranquilizer014.blogspot.com/2025/02/combined-defence-services-cds.html",
+            inline=True,
+        )
         embed.set_footer(name="By", value="Tranquilizer", inline=True)
-        await ctx.send(embed=embed)
-    
+        await interaction.response.send_message(embed=embed)
 
-    @commands.hybrid_command(name="wiki", description="Get the r/NDATards official wiki link")
-    async def wiki(self, ctx):
+    @app_commands.command(
+        name="wiki", description="Get the r/NDATards official wiki link"
+    )
+    async def wiki(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📖 Wiki",
             description="Here is the official r/NDATards wiki:",
-            color=discord.Color.blue()
+            color=discord.Color.blue(),
         )
-        embed.add_field(name="Link:", value="https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki/", inline=True)
-        embed.set_footer(name="By", value="the great contributors of NDATards", inline=True)
-        await ctx.send(embed=embed)
-    
+        embed.add_field(
+            name="Link:",
+            value="https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki/",
+            inline=True,
+        )
+        embed.set_footer(
+            name="By", value="the great contributors of NDATards", inline=True
+        )
+        await interaction.response.send_message(embed=embed)
 
-    @commands.hybrid_command(name="mock", description="Get links to online NDA mock tests")
-    async def mock(self, ctx):
+    @app_commands.command(name="mock", description="Get links to online NDA mock tests")
+    async def mock(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📝 NDA Mock Test Links",
             description="Here are some great platforms to practice NDA mock tests:",
-            color=discord.Color.blue()
+            color=discord.Color.blue(),
         )
 
         embed.add_field(
@@ -61,18 +72,17 @@ class Prep(commands.Cog):
                 "[Mockers](https://www.mockers.in/exam/nda-mock-test)\n"
                 "[EduRev](https://edurev.in/courses/8741_NDA--National-Defence-Academy--Mock-Test-Series)"
             ),
-            inline=False
+            inline=False,
         )
 
-        await ctx.send(embed=embed)
+        await interaction.response.send_message(embed=embed)
 
-
-    @commands.hybrid_command(name="pyqs", description="Get link to online mock NDA tests")
-    async def pyqs(self, ctx):
+    @app_commands.command(name="pyqs", description="Get link to online mock NDA tests")
+    async def pyqs(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📚 NDA PYQs",
             description="Here are some curated mock test & previous year question paper links:",
-            color=discord.Color.blue()
+            color=discord.Color.blue(),
         )
 
         embed.add_field(
@@ -82,26 +92,26 @@ class Prep(commands.Cog):
                 "[SelfStudys (Online Mock Tests - 54 Papers)](https://www.mockers.in/exam/nda-mock-test)\n"
                 "[StudyIQ (PDFs - 20 Papers)](https://www.studyiq.com/articles/nda-previous-year-question-papers/)"
             ),
-            inline=False
+            inline=False,
         )
 
-        await ctx.send(embed=embed)
+        await interaction.response.send_message(embed=embed)
 
-
-    @commands.hybrid_command(name="daysleftto", description="Gives number of days remaining to nda or cds exam", aliases=["dlte"])
-    async def dlte(self, ctx, exam):
-        if exam=="nda":
+    @app_commands.command(
+        name="daysleftto",
+        description="Gives number of days remaining to nda or cds exam",
+    )
+    async def dlte(self, interaction: discord.Interaction, exam: str):
+        if exam == "nda":
             exam_date = datetime(2025, 9, 14)  # NDA 2 2025
             today = datetime.now()
             days_remaining = (exam_date - today).days
-        elif exam=="cds":
+        elif exam == "cds":
             exam_date = datetime(2025, 9, 14)  # CDS 2 2025
             today = datetime.now()
             days_remaining = (exam_date - today).days
 
-        embed = discord.Embed(
-            colour=discord.Colour.red()
-        )
+        embed = discord.Embed(colour=discord.Colour.red())
 
         if days_remaining > 0:
             embed.title = f"🗓️ ``{days_remaining} days`` left until the {exam} exam on `{exam_date.date()}`."
@@ -110,16 +120,19 @@ class Prep(commands.Cog):
         else:
             embed.title = f"✅ The last {exam} exam date has **passed**. Date for the next will be set soon."
 
-        await ctx.send(embed=embed)
-    
+        await interaction.response.send_message(embed=embed)
 
-    @commands.hybrid_command(name="attemptnda", description="Calculate your NDA eligibility based on your date of birth.")
-    async def attemptnda(self, ctx: commands.Context, birthdate: str):
+    @app_commands.command(
+        name="attemptnda",
+        description="Calculate your NDA eligibility based on your date of birth.",
+    )
+    async def attemptnda(self, interaction: discord.Interaction, birthdate: str):
         """
         Calculates NDA eligibility based on DOB.
         Usage: /attemptnda DD-MM-YYYY
         Example: /attemptnda 23-09-2008
         """
+        await interaction.response.defer()
         try:
             birthdate = str(birthdate)
             # Accept DOB in DD-MM-YYYY format
@@ -143,41 +156,51 @@ class Prep(commands.Cog):
                     eligible_attempts.append(f"NDA 2 {year}")
 
             if not eligible_attempts:
-                await ctx.reply("❌ You are not eligible for any upcoming NDA exams based on your date of birth.")
+                await interaction.followup.send(
+                    "❌ You are not eligible for any upcoming NDA exams based on your date of birth."
+                )
                 return
 
             embed = discord.Embed(
                 title="🪖 NDA Eligibility Checker",
                 description=f"Based on your birthdate: `{birthdate}`",
-                color=discord.Color.green()
+                color=discord.Color.green(),
             )
             embed.add_field(
                 name="✅ Eligible NDA Attempts:",
                 value="\n".join(eligible_attempts),
-                inline=False
+                inline=False,
             )
-            embed.add_field(name="⚠️ NOTE:", value="If you're in school currently, the first nda attempt you're eligible for will be NDA 2 of your class 12th year. For eg: if you're in class 12th in 2026, you can apply for nda 2 2026 and the upcoming nda attempts. This is because joining of NDA 1 happens in January and you won't have passed 12th by then so youre not eligible for nda 1 during 12th or any previous attempts.")
+            embed.add_field(
+                name="⚠️ NOTE:",
+                value="If you're in school currently, the first nda attempt you're eligible for will be NDA 2 of your class 12th year. For eg: if you're in class 12th in 2026, you can apply for nda 2 2026 and the upcoming nda attempts. This is because joining of NDA 1 happens in January and you won't have passed 12th by then so youre not eligible for nda 1 during 12th or any previous attempts.",
+            )
             embed.set_footer(text=f"Total Eligible Attempts: {len(eligible_attempts)}")
-            await ctx.send(embed=embed)
+            await interaction.followup.send(embed=embed)
 
         except ValueError:
-            await ctx.reply("⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011).")
+            await interaction.followup.send(
+                "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
+            )
 
-
-    @commands.hybrid_command(name="attemptcds", description="Calculate your CDS eligibility based on your date of birth.")
-    async def attemptcds(self, ctx: commands.Context, birthdate: str):
+    @app_commands.command(
+        name="attemptcds",
+        description="Calculate your CDS eligibility based on your date of birth.",
+    )
+    async def attemptcds(self, interaction: discord.Interaction, birthdate: str):
         """
         Calculates CDS eligibility based on DOB.
         Usage: /attemptcds DD-MM-YYYY
         Example: /attemptcds 23-09-2008
         """
+        await interaction.response.defer()
         try:
             dob = datetime.strptime(birthdate, "%d-%m-%Y").date()
             today = date.today()
             current_year = today.year
 
             cds_attempts = {}
-            
+
             for year in range(current_year, current_year + 6):
                 # CDS 1 - February exam
                 attempt1 = f"CDS 1 {year}"
@@ -204,13 +227,15 @@ class Prep(commands.Cog):
                     cds_attempts[attempt2] = academies2
 
             if not cds_attempts:
-                await ctx.send("❌ You are not eligible for any upcoming CDS attempts based on your date of birth.")
+                await interaction.followup.send(
+                    "❌ You are not eligible for any upcoming CDS attempts based on your date of birth."
+                )
                 return
 
             embed = discord.Embed(
                 title="CDS Eligibility Checker",
                 description=f"Based on your birthdate: `{birthdate}`",
-                color=discord.Color.green()
+                color=discord.Color.green(),
             )
 
             total_attempts = len(cds_attempts)
@@ -218,16 +243,21 @@ class Prep(commands.Cog):
                 embed.add_field(name=attempt, value=", ".join(academies), inline=False)
 
             embed.set_footer(text=f"Total Eligible CDS Attempts: {total_attempts}")
-            await ctx.send(embed=embed)
+            await interaction.followup.send(embed=embed)
 
         except ValueError:
-            await ctx.send("⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011).")
+            await interaction.followup.send(
+                "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
+            )
 
-    
     @commands.hybrid_command(name="timer", description="Start a timer with buttons.")
     async def timer(self, ctx: commands.Context, minutes: int = 25):
         view = timerView(user_id=ctx.author.id, duration=minutes, bot=ctx.bot)
-        await view.start(ctx)
+        await view.start(
+            ctx
+        )  # This feels odd so I won't make this an interaction only command
+        # Feels like it would fuck up since interaction responses tend to only want one reply
+        # and they typically want it within a minute or so
 
 
 # Timer backend code
@@ -280,14 +310,14 @@ class timerView(ui.View):
             embed = discord.Embed(
                 title=f"timer - {username}",
                 description="🛑 Stopped",
-                color=discord.Color.red()
+                color=discord.Color.red(),
             )
         else:
             color = discord.Color.red() if self.paused else discord.Color.green()
             embed = discord.Embed(
                 title=f"{self.duration // 60} mins timer - {username}",
                 description=f"⏳ Time Remaining: `{self._format_time(self.remaining)}`",
-                color=color
+                color=color,
             )
             if self.paused:
                 embed.set_footer(text="⏸️ Paused")
@@ -299,7 +329,9 @@ class timerView(ui.View):
         embed = await self._get_embed(guild=ctx.guild)
 
         if ctx.interaction:
-            await ctx.interaction.response.send_message(embed=embed, view=self, ephemeral=True)
+            await ctx.interaction.response.send_message(
+                embed=embed, view=self, ephemeral=True
+            )
             self.message = await ctx.interaction.original_response()
         else:
             self.message = await ctx.send(embed=embed, view=self)
@@ -316,11 +348,15 @@ class timerView(ui.View):
                 if self._stop_event.is_set():
                     return
 
-                embed = await self._get_embed(guild=self.message.guild if self.message else None)
+                embed = await self._get_embed(
+                    guild=self.message.guild if self.message else None
+                )
                 await self.message.edit(embed=embed, view=self)
 
             # Timer finished - edit embed title and remove view/buttons
-            embed = await self._get_embed(guild=self.message.guild if self.message else None)
+            embed = await self._get_embed(
+                guild=self.message.guild if self.message else None
+            )
             embed.title = "⏰ timer session complete!"
             await self.message.edit(embed=embed, view=None)
 
@@ -329,7 +365,9 @@ class timerView(ui.View):
 
     async def interaction_check(self, interaction: Interaction) -> bool:
         if interaction.user.id != self.user_id:
-            await interaction.response.send_message("This isn't your timer!", ephemeral=True)
+            await interaction.response.send_message(
+                "This isn't your timer!", ephemeral=True
+            )
             return False
         return True
 
