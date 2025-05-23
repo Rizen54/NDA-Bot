@@ -100,25 +100,30 @@ class Prep(commands.Cog):
         description="Gives number of days remaining to nda or cds exam",
     )
     async def dlte(self, interaction: discord.Interaction, exam: str):
-        if exam == "nda":
+        embed = discord.Embed(colour=discord.Colour.red())
+
+        if exam.lower() == "nda":
             exam_date = datetime(2025, 9, 14)  # NDA 2 2025
             today = datetime.now()
             days_remaining = (exam_date - today).days
-        elif exam == "cds":
+        elif exam.lower() == "cds":
             exam_date = datetime(2025, 9, 14)  # CDS 2 2025
             today = datetime.now()
             days_remaining = (exam_date - today).days
 
-        embed = discord.Embed(colour=discord.Colour.red())
+        try:
+            if days_remaining > 0:
+                embed.title = f"🗓️ ``{days_remaining} days`` left until the {exam} exam on `{exam_date.date()}`."
+            elif days_remaining == 0:
+                embed.title = f"🎯 The {exam} exam is **today**! Give it your best!"
+            else:
+                embed.title = f"✅ The last {exam} exam date has **passed**. Date for the next will be set soon."
 
-        if days_remaining > 0:
-            embed.title = f"🗓️ ``{days_remaining} days`` left until the {exam} exam on `{exam_date.date()}`."
-        elif days_remaining == 0:
-            embed.title = f"🎯 The {exam} exam is **today**! Give it your best!"
-        else:
-            embed.title = f"✅ The last {exam} exam date has **passed**. Date for the next will be set soon."
-
-        await interaction.response.send_message(embed=embed)
+            await interaction.response.send_message(embed=embed)
+        except:
+            embed.title = f"Please enter either nda or cds."
+            await interaction.response.send_message(embed=embed)
+            
 
     @app_commands.command(
         name="attemptnda",
