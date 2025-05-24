@@ -45,7 +45,7 @@ async def setup_presence(bot: commands.Bot):
 async def setup_hook():
     print("Loading cogs...")
     await load_all_cogs(bot)
-    # await setup_presence(bot)
+    await setup_presence(bot)
     print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
 
 

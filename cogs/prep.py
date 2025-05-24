@@ -44,14 +44,8 @@ class Prep(commands.Cog):
     )
     async def wiki(self, interaction: discord.Interaction):
         embed = discord.Embed(
-            title="📖 Wiki",
-            description="Here is the official r/NDATards wiki:",
+            title="[📖 Wiki](https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki)",
             color=discord.Color.blue(),
-        )
-        embed.add_field(
-            name="Link:",
-            value="https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki/",
-            inline=True,
         )
         embed.set_footer(text="By the great contributors of NDATards")
         await interaction.response.send_message(embed=embed)
@@ -92,6 +86,29 @@ class Prep(commands.Cog):
             ),
             inline=False,
         )
+
+        await interaction.response.send_message(embed=embed)
+
+    @app_commands.command(name="material", description="List of amazon links to good prep books (none sponsored)")
+    async def material(self, interaction: discord.Interaction):
+        embed = discord.Embed(
+            title="📚 Material",
+            color=discord.Color.blue(),
+
+        )
+
+        embed.add_field(
+            name="🔗 Resources:",
+            value=(
+                "[Disha NDA PYQ Books](https://amzn.in/d/1nYZgw6)\n"
+                "[Pathfinder](https://amzn.in/d/7zeyvIH)\n"
+                "[Mission NDA](https://amzn.in/d/iUifB1B)\n"
+                "[Arihant topicwise solved pyqs](https://amzn.in/d/6DSJ046)\n"
+                "[RS Aggarwal Maths for NDA/NA](https://amzn.in/d/1x9YegG)\n"
+            ),
+            inline=False,
+        )
+        embed.set_footer(text="Suggest more books in #suggestions")
 
         await interaction.response.send_message(embed=embed)
 
