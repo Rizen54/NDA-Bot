@@ -19,7 +19,7 @@ class Misc(commands.Cog):
                 description="```Targeting:\nClass/Grad:\nBirth Year:\nBoard:\nStream:```",
                 color=discord.Color.green()
             )
-            await channel.send(embed=embed)
+            await channel.send(embed=embed, allowed_mentions=discord.AllowedMentions(users=True))
     
     @app_commands.command(name="rule", description="Give a server rule spcified by rule num.")
     async def rule(self, interaction: discord.Interaction, rule_num: int):
