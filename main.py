@@ -33,20 +33,20 @@ async def load_all_cogs(bot: commands.Bot):
             print(f"✅ {filename[:-3]}")
 
 
-async def setup_presence(bot: commands.Bot):
+@bot.event
+async def on_ready():
+    print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
     await bot.change_presence(
         activity=discord.Activity(
-            type=discord.ActivityType.competing, name=f"with yall for NDA"
+            type=discord.ActivityType.competing,
+            name="with yall for NDA"
         )
     )
-
 
 @bot.event
 async def setup_hook():
     print("Loading cogs...")
-    await load_all_cogs(bot)
-    await setup_presence(bot)
-    print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
+    await load_all_cogs(bot)  # assuming this works fine
 
 
 # OWNER ONLY COMMANDS
