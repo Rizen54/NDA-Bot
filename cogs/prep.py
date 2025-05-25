@@ -13,14 +13,10 @@ class Prep(commands.Cog):
     async def nda_guide(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📚 NDA Guide",
-            description="Here is an in-depth nda guide:",
+            description="[Here is an in-depth nda guide](https://tranquilizer014.blogspot.com/2025/02/nda-national-defence-academy-entry.html)",
             color=discord.Color.blue(),
         )
-        embed.add_field(
-            name="Link:",
-            value="https://tranquilizer014.blogspot.com/2025/02/nda-national-defence-academy-entry.html",
-            inline=True,
-        )
+
         embed.add_field(name="By", value="Tranquilizer", inline=True)
         await interaction.response.send_message(embed=embed)
 
@@ -28,14 +24,10 @@ class Prep(commands.Cog):
     async def cds_guide(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📚 CDS Guide",
-            description="Here is an in-depth CDS guide:",
+            description="[Here is an in-depth CDS guide](https://tranquilizer014.blogspot.com/2025/02/combined-defence-services-cds.html)",
             color=discord.Color.blue(),
         )
-        embed.add_field(
-            name="Link:",
-            value="https://tranquilizer014.blogspot.com/2025/02/combined-defence-services-cds.html",
-            inline=True,
-        )
+        
         embed.set_footer(text="By Tranquilizer")
         await interaction.response.send_message(embed=embed)
 
@@ -44,7 +36,8 @@ class Prep(commands.Cog):
     )
     async def wiki(self, interaction: discord.Interaction):
         embed = discord.Embed(
-            title="[📖 Wiki](https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki)",
+            title="📖 Wiki",
+            description="[Link](https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki)",
             color=discord.Color.blue(),
         )
         embed.set_footer(text="By the great contributors of NDATards")
