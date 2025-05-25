@@ -29,12 +29,17 @@ def is_owner(ctx):
 async def load_all_cogs(bot: commands.Bot):
     for filename in os.listdir("cogs"):
         if filename.endswith(".py"):
-            await bot.load_extension(f"cogs.{filename[:-3]}")
-            print(f"✅ {filename[:-3]}")
+            if f"cogs.{filename[:-3]}" not in bot.extensions:
+                await bot.load_extension(f"cogs.{filename[:-3]}")
+                print(f"✅ {filename[:-3]}")
 
 
 @bot.event
 async def on_ready():
+    print("Currently loaded cogs:")
+    for cog in bot.extensions:  
+        print(f" - {cog}")
+
     print(f"✅ Logged in as {bot.user.name} (ID: {bot.user.id})")
     await bot.change_presence(
         activity=discord.Activity(
@@ -43,10 +48,11 @@ async def on_ready():
         )
     )
 
+
 @bot.event
 async def setup_hook():
     print("Loading cogs...")
-    await load_all_cogs(bot)  # assuming this works fine
+    await load_all_cogs(bot)
 
 
 # OWNER ONLY COMMANDS

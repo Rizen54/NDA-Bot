@@ -7,19 +7,21 @@ from random import choice
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+
+
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel_id = 1343570812275523639
-        channel = member.guild.get_channel(channel_id)
+        channel = self.bot.get_channel(channel_id)
 
         if channel:
             embed = discord.Embed(
-                title=f"Welcome, {member.mention}! Please introduce yourself by filling in the details below. (If you don't want to share some specific detail leave it blank):",
+                title="Welcome! Please introduce yourself by filling in the details below.",
                 description="```Targeting:\nClass/Grad:\nBirth Year:\nBoard:\nStream:```",
                 color=discord.Color.green()
             )
-            await channel.send(embed=embed, allowed_mentions=discord.AllowedMentions(users=True))
+            await channel.send(content=member.mention, embed=embed, allowed_mentions=discord.AllowedMentions(users=True))
+
     
     @app_commands.command(name="rule", description="Give a server rule spcified by rule num.")
     async def rule(self, interaction: discord.Interaction, rule_num: int):
