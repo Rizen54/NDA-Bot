@@ -147,7 +147,14 @@ class Prep(commands.Cog):
         """
         await interaction.response.defer()
         try:
-            birthdate = str(birthdate)
+            birthdate = str(birthdate).replace("/", "-")
+            parts = birthdate.replace("/", "-").split("-")
+            if len(parts) == 3:
+                day = parts[0].zfill(2)
+                month = parts[1].zfill(2)
+                year = parts[2]
+                birthdate = f"{day}-{month}-{year}"
+
             # Accept DOB in DD-MM-YYYY format
             dob = datetime.strptime(birthdate, "%d-%m-%Y").date()
             current_year = datetime.now().year
@@ -163,7 +170,7 @@ class Prep(commands.Cog):
                     eligible_attempts.append(f"NDA 1 {year}")
 
                 # NDA 2: DOB must be between 2nd January (year - 19) and 1st January (year - 16)
-                nda2_start = date(year - 19, 1, 2)
+                nda2_start = date(year - 18, 1, 2) 
                 nda2_end = date(year - 16, 1, 1)
                 if nda2_start <= dob <= nda2_end:
                     eligible_attempts.append(f"NDA 2 {year}")
