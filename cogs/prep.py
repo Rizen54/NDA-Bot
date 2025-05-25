@@ -214,6 +214,13 @@ class Prep(commands.Cog):
         Example: /attemptcds 23-09-2008
         """
         await interaction.response.defer()
+        birthdate = str(birthdate).replace("/", "-")
+        parts = birthdate.replace("/", "-").split("-")
+        if len(parts) == 3:
+            day = parts[0].zfill(2)
+            month = parts[1].zfill(2)
+            year = parts[2]
+            birthdate = f"{day}-{month}-{year}"
         try:
             dob = datetime.strptime(birthdate, "%d-%m-%Y").date()
             today = date.today()
