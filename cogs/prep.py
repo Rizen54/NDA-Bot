@@ -335,7 +335,7 @@ class timerView(ui.View):
 
         if self.stopped:
             embed = discord.Embed(
-                title=f"timer - {username}",
+                title=f"Timer - {username}",
                 description="🛑 Stopped",
                 color=discord.Color.red(),
             )
@@ -357,7 +357,7 @@ class timerView(ui.View):
 
         if ctx.interaction:
             await ctx.interaction.response.send_message(
-                embed=embed, view=self, ephemeral=True
+                embed=embed, view=self
             )
             self.message = await ctx.interaction.original_response()
         else:
