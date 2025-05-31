@@ -16,13 +16,34 @@ class Misc(commands.Cog):
 
         if channel:
             embed = discord.Embed(
-                title="Welcome! Please introduce yourself by filling in the details below.",
+                title="Welcome! Please introduce yourself by filling in the details below. You cannot access other channels without putting an intro here.",
                 description="```Targeting:\nClass/Grad:\nBirth Year:\nBoard:\nStream:```",
                 color=discord.Color.green()
             )
             await channel.send(content=member.mention, embed=embed, allowed_mentions=discord.AllowedMentions(users=True))
 
-    
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        if message.author.bot:
+            return  # Ignore bots
+
+        if message.channel.id != 1343570812275523639:
+            return  # Not the intro channel
+
+        guild = message.guild
+        member = message.author
+        role = guild.get_role(1348380204401168465)
+
+        if role in member.roles:
+            return  # They already got the role, skip
+
+        try:
+            await member.add_roles(role, reason="Sent message in intro channel")
+            self.bot.get_channel(1346165101807403098).send(f"Gave {role.name} role to {member.display_name}")
+        except Exception as e:
+            self.bot.get_channel(1346165101807403098).send(f"Failed to give intro role: {e}")
+
+
     @app_commands.command(name="rule", description="Give a server rule spcified by rule num.")
     async def rule(self, interaction: discord.Interaction, rule_num: int):
         await interaction.response.defer()
