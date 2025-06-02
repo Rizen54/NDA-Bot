@@ -5,8 +5,8 @@
 **all/awl** - everything/tool for piercing  
 **allowed/aloud** - permitted/spoken audibly  
 **altar/alter** - religious table/to change  
-**ant/aunt** - insect/parent’s sister  
-**arc/ark** - curve/Noah’s boat  
+**ant/aunt** - insect/parent's sister  
+**arc/ark** - curve/Noah's boat  
 **ate/eight** - consumed/number 8  
 **bail/bale** - release from custody/bundle of hay  
 **ball/bawl** - spherical object/to cry loudly  
@@ -23,7 +23,7 @@
 **bold/bowled** - courageous/knocked over in cricket  
 **brake/break** - to stop/to shatter  
 **bread/bred** - food/raised or produced  
-**bridal/bridle** - wedding-related/horse’s headgear  
+**bridal/bridle** - wedding-related/horse's headgear  
 **buy/by/bye** - purchase/preposition/farewell  
 **canvas/canvass** - fabric/to solicit votes  
 **capital/capitol** - city or wealth/government building  
@@ -38,7 +38,7 @@
 **chews/choose** - to bite and grind/to select  
 **chord/cord** - musical notes/string or rope  
 **cite/sight/site** - to reference/vision/location  
-**clause/claws** - sentence part/animal’s nails  
+**clause/claws** - sentence part/animal's nails  
 **coarse/course** - rough/path or class  
 **complement/compliment** - something that completes/praise  
 **council/counsel** - advisory body/advice or to advise  
@@ -65,5 +65,88 @@
 **for/fore/four** - preposition/forward/number 4  
 **foul/fowl** - offensive or unfair/bird  
 **gait/gate** - manner of walking/entrance  
-**gene/jean** - DNA unit/denim fabric  
-**gild
+**gene/jean** - DNA unit/denim fabric
+gorilla/guerrilla - primate/fighter or rebel
+grate/great - to shred or a metal grid/excellent
+groan/grown - to moan/past participle of grow
+hair/hare - on the head/rabbit-like animal
+hall/haul - corridor/to pull or carry
+heal/heel - to cure/back of the foot
+hear/here - to listen/in this place
+heard/herd - past tense of hear/group of animals
+higher/hire - more elevated/to employ
+him/hymn - masculine pronoun/religious song
+hoard/horde - to stockpile/large group
+hole/whole - opening/complete or entire
+hour/our - 60 minutes/possessive pronoun
+idle/idol - inactive/object of worship
+in/inn - preposition/hotel
+its/it's - possessive pronoun/contraction of it is
+knew/new - past tense of know/fresh or recent
+knight/night - medieval warrior/time of darkness
+knot/not - tied rope/negative
+know/no - to understand/negative
+lead/led - to guide or a metal/past tense of lead
+lessen/lesson - to reduce/teaching session
+lie/lye - to recline or falsehood/caustic substance
+loan/lone - something borrowed/solitary
+made/maid - created/housekeeper
+mail/male - letters or packages/gender
+main/mane - primary/hair on a horse's neck
+meat/meet - food/to encounter
+missed/mist - didn't catch/fog
+morning/mourning - time of day/grieving
+navel/naval - belly button/related to the navy
+one/won - number 1/past tense of win
+pail/pale - bucket/lacking color
+pain/pane - discomfort/window glass
+pair/pear - two/fruit
+passed/past - went by/time before now
+patience/patients - ability to wait/people under medical care
+peace/piece - tranquility/part of something
+peak/peek/pique - summit/to glance/to arouse interest
+plain/plane - simple or flat/aircraft
+praise/prays/preys - to commend/religious act/hunts
+principal/principle - head of school or main/fundamental truth
+profit/prophet - financial gain/religious seer
+rain/reign/rein - precipitation/to rule/horse control
+raise/rays/raze - to lift/light beams/to demolish
+rap/wrap - to knock or music style/to cover
+read/reed - to interpret text/tall grass
+red/read - color/past tense of read
+right/rite/write - correct or direction/ritual/to compose
+ring/wring - circular object or sound/to twist
+road/rode - street/past tense of ride
+role/roll - part in a play/to turn over or a list
+root/route - plant part/path
+rose/rows - flower/lines
+sail/sale - boat part/act of selling
+scene/seen - setting/past participle of see
+sea/see - ocean/to look
+sew/so/sow - to stitch/thus/to plant seeds
+shear/sheer - to cut/absolute or transparent
+shore/sure - beach/certain
+sight/site/cite - vision/location/to reference (already in your list, included for completeness)
+soar/sore - to fly/painful
+sole/soul - only or bottom of foot/spirit
+son/sun - male child/star
+stair/stare - steps/to look intently
+stake/steak - pole or bet/meat
+stationary/stationery - not moving/writing materials
+steal/steel - to take illegally/metal
+tail/tale - animal appendage/story
+their/there/they're - possessive pronoun/location/contraction of they are
+threw/through - past tense of throw/via
+throne/thrown - royal seat/past participle of throw
+to/too/two - preposition/excessively/number 2
+vain/vein - conceited/blood vessel
+waist/waste - midsection/to squander
+wait/weight - to stay/mass
+ware/wear/where - goods/to put on/location
+way/weigh/whey - path/to measure weight/milk byproduct
+weak/week - not strong/seven days
+weather/whether - climate/if
+which/witch - what one/magical person
+wood/would - timber/modal verb
+yoke/yolk - harness/egg part
+your/you're - possessive pronoun/contraction of you are

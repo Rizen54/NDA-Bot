@@ -9,6 +9,17 @@ class Prep(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+        #Read files for english
+        with open("../english/vocab.txt", "r") as f:
+            self.vocab = f.readlines()
+        with open("../english/homophones.txt", "r") as f:
+            self.homophones = f.readlines()
+        with open("../english/idioms.txt", "r") as f:
+            self.idioms = f.readlines()
+        with open("../english/synoanto.txt", "r") as f:
+            self.synoanto = f.readlines()
+
+
     @app_commands.command(name="nda", description="Get an in-depth NDA guide")
     async def nda_guide(self, interaction: discord.Interaction):
         embed = discord.Embed(

@@ -79,7 +79,7 @@
 **buttress** - a structure to support or reinforce; to strengthen  
 **cacophony** - a harsh, discordant mixture of sounds  
 **callous** - emotionally hardened; unfeeling  
-**calumny** - a false statement meant to injure someone’s reputation  
+**calumny** - a false statement meant to injure someone's reputation  
 **camaraderie** - mutual trust and friendship among people  
 **candor** - the quality of being open and honest  
 **capricious** - given to sudden changes of mood or behavior  
@@ -117,7 +117,7 @@
 **conducive** - making a certain situation or outcome likely  
 **conflagration** - an extensive fire that destroys a great deal  
 **confound** - to cause surprise or confusion; to perplex  
-**congenial** - pleasant or agreeable because suited to one’s taste  
+**congenial** - pleasant or agreeable because suited to one's taste  
 **congenital** - present from birth; inherent  
 **conjecture** - an opinion formed on incomplete information  
 **connoisseur** - an expert judge in matters of taste  
@@ -147,7 +147,7 @@
 **decorous** - polite and restrained in manner  
 **deference** - respectful submission or yielding to another  
 **defunct** - no longer existing or functioning  
-**deign** - to do something considered beneath one’s dignity  
+**deign** - to do something considered beneath one's dignity  
 **deleterious** - causing harm or damage  
 **delineate** - to describe or portray precisely  
 **deluge** - a great flood or heavy downpour; to overwhelm  
@@ -174,14 +174,14 @@
 **disparage** - to belittle or speak negatively about  
 **disparate** - essentially different in kind; not comparable  
 **dispassionate** - not influenced by strong emotion; impartial  
-**dissemble** - to conceal one’s true motives or feelings  
+**dissemble** - to conceal one's true motives or feelings  
 **disseminate** - to spread information widely  
 **dissident** - a person who opposes official policy  
 **dissolution** - the act of breaking up or dissolving something  
 **dissonance** - lack of harmony or agreement  
 **distend** - to swell or cause to swell from internal pressure  
 **divest** - to deprive or strip of something  
-**dogmatic** - inclined to assert one’s beliefs as unquestionably true  
+**dogmatic** - inclined to assert one's beliefs as unquestionably true  
 **dormant** - temporarily inactive or inoperative  
 **duplicity** - deceitfulness; double-dealing  
 **ebullient** - cheerful and full of energy  
@@ -356,7 +356,7 @@
 **nemesis** - a long-standing rival or enemy  
 **nonplussed** - surprised and confused, unsure how to react  
 **nostalgia** - a sentimental longing for the past  
-**obdurate** - stubbornly refusing to change one’s opinion  
+**obdurate** - stubbornly refusing to change one's opinion  
 **obfuscate** - to render obscure, unclear, or unintelligible  
 **oblique** - neither parallel nor at a right angle; indirect  
 **obnoxious** - extremely unpleasant or offensive  
@@ -445,7 +445,7 @@
 **rescind** - to revoke, cancel, or repeal  
 **resilient** - able to recover quickly from difficulties  
 **respite** - a short period of rest or relief  
-**reticent** - not revealing one’s thoughts or feelings readily  
+**reticent** - not revealing one's thoughts or feelings readily  
 **revere** - to feel deep respect or admiration for  
 **reverent** - feeling or showing deep respect  
 **rhetoric** - the art of effective or persuasive speaking or writing  
@@ -475,7 +475,7 @@
 **strife** - angry or bitter disagreement; conflict  
 **stymie** - to prevent or hinder the progress of  
 **sublime** - of such excellence or beauty as to inspire awe  
-**subterfuge** - deceit used to achieve one’s goal  
+**subterfuge** - deceit used to achieve one's goal  
 **surmise** - to suppose something without sufficient evidence  
 **surreptitious** - kept secret, especially because it would not be approved  
 **sustain** - to strengthen or support physically or mentally  
