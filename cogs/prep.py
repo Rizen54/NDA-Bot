@@ -225,22 +225,22 @@ class Prep(commands.Cog):
 
         if number>20:
             embed = discord.Embed(
-                title=f"❌ Max limit is 20 pairs!",
+                title=f"❌ Max limit is 20 words!",
                 color=discord.Color.red(),
             )
 
         elif number<=0:
             embed = discord.Embed(
-                title=f"❌ Ask for at least 1 homphone pair!",
+                title=f"❌ Ask for at least 1 word!",
                 color=discord.Color.red(),
             )
 
 
         else:
-            returnlist = sample(self.homophones, number)
+            returnlist = sample(self.synoanto, number)
 
             embed = discord.Embed(
-                title=f"Here are {number} homophones",
+                title=f"Here are {number} Words with 3 synonyms and antonyms each",
                 description="\n".join(returnlist),
                 color=discord.Color.blue(),
             )
