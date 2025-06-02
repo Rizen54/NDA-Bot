@@ -1,7 +1,8 @@
-from datetime import datetime, date, timedelta
+from random import sample
+from datetime import datetime, date
 import discord
 from discord import app_commands, Interaction, ui
-from discord.ext import commands
+from discord.ext import commands, tasks
 import asyncio
 
 
@@ -10,14 +11,258 @@ class Prep(commands.Cog):
         self.bot = bot
 
         #Read files for english
-        with open("../english/vocab.txt", "r") as f:
+        with open("english/vocab.txt", "r") as f:
             self.vocab = f.readlines()
-        with open("../english/homophones.txt", "r") as f:
+        with open("english/homophones.txt", "r") as f:
             self.homophones = f.readlines()
-        with open("../english/idioms.txt", "r") as f:
+        with open("english/idioms.txt", "r") as f:
             self.idioms = f.readlines()
-        with open("../english/synoanto.txt", "r") as f:
+        with open("english/synoanto.txt", "r") as f:
             self.synoanto = f.readlines()
+
+        # Load subscriptions from file
+        self.subscriptions = {}  # Maps user_id (int) to word_count (int)
+        self.subscriptions_file = "subscriptions.txt"
+        self.load_subscriptions()
+
+        # Start the background task for sending daily DMs
+        self.last_sent_date = None  # Track the last date we sent messages to avoid duplicates
+        self.send_daily_vocab.start()
+
+    def load_subscriptions(self):
+        """Load subscription data from subscriptions.txt into self.subscriptions."""
+        try:
+            with open(self.subscriptions_file, "r", encoding="utf-8") as f:
+                lines = f.read().splitlines()
+            for line in lines:
+                if line.strip():  # Ignore empty lines
+                    user_id, word_count = map(int, line.split(","))
+                    self.subscriptions[user_id] = word_count
+        except FileNotFoundError:
+            # If the file doesn't exist, create it
+            with open(self.subscriptions_file, "w", encoding="utf-8") as f:
+                pass
+        except Exception as e:
+            print(f"Error loading subscriptions: {e}")
+    
+
+    def save_subscriptions(self):
+        """Save subscription data from self.subscriptions to subscriptions.txt."""
+        with open(self.subscriptions_file, "w", encoding="utf-8") as f:
+            for user_id, word_count in self.subscriptions.items():
+                f.write(f"{user_id},{word_count}\n")
+
+    @app_commands.command(name="subscribe", description="Subscribe to daily vocab words in DM")
+    async def subscribe(self, interaction: discord.Interaction, number: int = 10):
+        # Validate the number of words
+        if number < 1:
+            await interaction.response.send_message("Please request at least 1 word.", ephemeral=True)
+            return
+        if number > 20:
+            await interaction.response.send_message("Max limit is 20 words!", ephemeral=True)
+            return
+
+        # Add user to subscriptions
+        user_id = interaction.user.id
+        self.subscriptions[user_id] = number
+        self.save_subscriptions()
+
+        embed = discord.Embed(
+                title="Subscription Successful",
+                description=f"You'll receive {number} vocab words every morning at 6:00 AM IST via DM.",
+                color=discord.Color.green(),
+            )
+        await interaction.response.send_message(embed=embed)
+        
+    @app_commands.command(name="unsubscribe", description="Unsubscribe from daily vocab DMs")
+    async def unsubscribe(self, interaction: discord.Interaction):
+        user_id = interaction.user.id
+        if user_id in self.subscriptions:
+            del self.subscriptions[user_id]
+            self.save_subscriptions()
+            await interaction.response.send_message(
+                "Unsubscribed! You will no longer receive daily vocab DMs.", ephemeral=True
+            )
+        else:
+            await interaction.response.send_message(
+                "You are not subscribed to daily vocab DMs.", ephemeral=True
+            )
+
+    @tasks.loop(minutes=10)  # Check every minutes
+    async def send_daily_vocab(self):
+        # Get current local time (assumed to be IST)
+        now = datetime.now()
+        current_hour = now.hour
+        current_date = now.date()
+
+        # Check if it's 6:00 AM
+        if current_hour != 6:
+            return
+
+        # Ensure we only send once per day
+        if self.last_sent_date == current_date:
+            return
+        self.last_sent_date = current_date
+
+        # Send vocab words to each subscribed user
+        for user_id, word_count in self.subscriptions.items():
+            try:
+                user = await self.bot.fetch_user(user_id)
+                if not user:
+                    continue  # Skip if user can't be found
+
+                # Select random words
+                if not self.vocab:
+                    await user.send("Sorry, the vocabulary list is empty!")
+                    continue
+                selected_words = sample(self.vocab, k=min(word_count, len(self.vocab)))
+
+                # Create an embed with the selected words
+                embed = discord.Embed(
+                    title=f"Your Daily Vocabulary - {word_count} Words",
+                    description="\n".join(selected_words),
+                    color=discord.Color.blue(),
+                )
+
+                await user.send(embed=embed)
+            except Exception as e:
+                print(f"Error sending DM to user {user_id}: {e}")
+
+    @send_daily_vocab.before_loop
+    async def before_send_daily_vocab(self):
+        await self.bot.wait_until_ready()  # Wait for the bot to be ready before starting the task
+
+
+    @app_commands.command(name="vocab", description="Get hard words for vocab prep")
+    async def vocabulary(self, interaction: discord.Interaction, number: int=1):
+        await interaction.response.defer()
+
+        if number>20:
+            embed = discord.Embed(
+                title=f"❌ Max limit is 20 words!",
+                color=discord.Color.red(),
+            )
+
+        elif number<=0:
+            embed = discord.Embed(
+                title=f"❌ Ask for at least 1 word!",
+                color=discord.Color.red(),
+            )
+
+        else:
+            returnlist = sample(self.vocab, number)
+
+            embed = discord.Embed(
+                title=f"Here are {number} words",
+                description="\n".join(returnlist),
+                color=discord.Color.blue(),
+            )
+
+        await interaction.followup.send(embed=embed)
+
+    
+    @app_commands.command(name="idioms", description="Get idioms for vocab prep")
+    async def give_idioms(self, interaction: discord.Interaction, number: int=1):
+        await interaction.response.defer()
+
+        if number>20:
+            embed = discord.Embed(
+                title=f"❌ Max limit is 20 idioms!",
+                color=discord.Color.red(),
+            )
+            await interaction.followup.send(embed=embed)
+            return
+        elif number<=0:
+            embed = discord.Embed(
+                title=f"❌ Ask for at least 1 idiom!",
+                color=discord.Color.red(),
+            )
+
+        else:
+            returnlist = sample(self.idioms, number)
+
+            embed = discord.Embed(
+                title=f"Here are {number} idioms",
+                description="\n".join(returnlist),
+                color=discord.Color.blue(),
+            )
+
+        await interaction.followup.send(embed=embed)
+
+
+    @app_commands.command(name="homophones", description="Get homophones for vocab prep")
+    async def give_homophones(self, interaction: discord.Interaction, number: int=1):
+        await interaction.response.defer()
+
+        if number>20:
+            embed = discord.Embed(
+                title=f"❌ Max limit is 20 pairs!",
+                color=discord.Color.red(),
+            )
+
+        elif number<=0:
+            embed = discord.Embed(
+                title=f"❌ Ask for at least 1 homphone pair!",
+                color=discord.Color.red(),
+            )
+
+
+        else:
+            returnlist = sample(self.homophones, number)
+
+            embed = discord.Embed(
+                title=f"Here are {number} homophones",
+                description="\n".join(returnlist),
+                color=discord.Color.blue(),
+            )
+
+        await interaction.followup.send(embed=embed)
+
+
+    @app_commands.command(name="synoanto", description="Get words with 3 synonyms and antonyms for vocab prep")
+    async def give_synoanto(self, interaction: discord.Interaction, number: int=1):
+        await interaction.response.defer()
+
+        if number>20:
+            embed = discord.Embed(
+                title=f"❌ Max limit is 20 pairs!",
+                color=discord.Color.red(),
+            )
+
+        elif number<=0:
+            embed = discord.Embed(
+                title=f"❌ Ask for at least 1 homphone pair!",
+                color=discord.Color.red(),
+            )
+
+
+        else:
+            returnlist = sample(self.homophones, number)
+
+            embed = discord.Embed(
+                title=f"Here are {number} homophones",
+                description="\n".join(returnlist),
+                color=discord.Color.blue(),
+            )
+
+        await interaction.followup.send(embed=embed)
+
+    
+    @app_commands.command(name="vocabfiles", description="Get list of files which bot uses for vocab prep commands")
+    async def vocabfiles(self, interaction: discord.Interaction):
+        await interaction.response.defer()
+        returnlist = ["[Vocab](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/vocab.txt)",
+                      "[Idioms](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/idioms.txt)",
+                      "[Synonyms/Antonyms](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/synoanto.txt)",
+                      "[Homophones](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/homophones.txt)"]
+
+        embed = discord.Embed(
+            title=f"Here is the list to files that are used by me for vocab prep commands",
+            description="\n".join(returnlist),
+            color=discord.Color.blue(),
+        )
+
+        await interaction.followup.send(embed=embed)
 
 
     @app_commands.command(name="nda", description="Get an in-depth NDA guide")
