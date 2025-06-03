@@ -311,6 +311,7 @@ class Prep(commands.Cog):
             name="🔗 Resources:",
             value=(
                 "[Mockers](https://www.mockers.in/exam/nda-mock-test)\n"
+                "[Chapter-wise All subj pyqs Self Studys](https://www.selfstudys.com/books/nda-previous-year-paper/english/chapter-wise)"
                 "[EduRev](https://edurev.in/courses/8741_NDA--National-Defence-Academy--Mock-Test-Series)"
             ),
             inline=False,
@@ -331,7 +332,8 @@ class Prep(commands.Cog):
             value=(
                 "[Official UPSC PDFs](https://upsc.gov.in/examinations/previous-question-papers/archives?field_exam_name_value=National%20Defence%20Academy)\n"
                 "[SelfStudys (Online Mock Tests - 54 Papers)](https://www.mockers.in/exam/nda-mock-test)\n"
-                "[StudyIQ (PDFs - 20 Papers)](https://www.studyiq.com/articles/nda-previous-year-question-papers/)"
+                "[StudyIQ (PDFs - 20 Papers)](https://www.studyiq.com/articles/nda-previous-year-question-papers/)\n"
+                "[Chapter-wise All subj pyqs Self Studys](https://www.selfstudys.com/books/nda-previous-year-paper/english/chapter-wise)"
             ),
             inline=False,
         )
