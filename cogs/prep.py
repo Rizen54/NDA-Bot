@@ -22,7 +22,7 @@ class Prep(commands.Cog):
 
         # Load subscriptions from file
         self.subscriptions = {}  # Maps user_id (int) to word_count (int)
-        self.subscriptions_file = "subscriptions.txt"
+        self.subscriptions_file = "../subscriptions.txt"
         self.load_subscriptions()
 
         # Start the background task for sending daily DMs
