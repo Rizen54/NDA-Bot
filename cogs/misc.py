@@ -1,8 +1,149 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
+from discord.ui import Select, View
 from random import choice
 
+
+class HelpView(View):
+    def __init__(self):
+        super().__init__(timeout=300)  # Timeout after 5 minutes of inactivity
+        self.add_item(HelpSelect())
+
+
+class HelpSelect(Select):
+    def __init__(self):
+        options = [
+            discord.SelectOption(label="General", value="general", emoji="🌟", description="General utility commands"),
+            discord.SelectOption(label="Vocab Prep", value="vocab", emoji="📖", description="Vocabulary preparation commands"),
+            discord.SelectOption(label="Exam Prep", value="exam", emoji="🎓", description="NDA/CDS exam preparation commands"),
+            discord.SelectOption(label="Tools", value="tools", emoji="🛠️", description="Utility tools like timers"),
+        ]
+        super().__init__(placeholder="Select a category...", options=options)
+
+    async def callback(self, interaction: discord.Interaction):
+        category = self.values[0]
+        embed = discord.Embed(
+            title=f"Help - {category.capitalize()} Commands",
+            description="Here are the commands available in this category. Use `-` as the prefix for hybrid commands (e.g., `-bookmark`). All other commands are slash commands (`/`).",
+            color=discord.Color.dark_teal(),
+        )
+
+        if category == "general":
+            embed.add_field(
+                name="🌟 /rule",
+                value="Get a specific server rule by number.\n**Usage**: `/rule 1` (for Rule 1)",
+                inline=False
+            )
+            embed.add_field(
+                name="🌟 /toss",
+                value="Toss a coin to make a decision.\n**Usage**: `/toss`",
+                inline=False
+            )
+            embed.add_field(
+                name="🌟 /books",
+                value="Get Amazon links to non-academic defence-related books (none sponsored).\n**Usage**: `/books`",
+                inline=False
+            )
+            embed.add_field(
+                name="🌟 -bookmark",
+                value="DMs you the message you replied to.\n**Usage**: Reply to a message with `-bookmark`",
+                inline=False
+            )
+
+        elif category == "vocab":
+            embed.add_field(
+                name="📖 /vocab",
+                value="Get hard words for vocabulary prep.\n**Usage**: `/vocab 5` (for 5 words)",
+                inline=False
+            )
+            embed.add_field(
+                name="📖 /idioms",
+                value="Get idioms for vocabulary prep.\n**Usage**: `/idioms 3` (for 3 idioms)",
+                inline=False
+            )
+            embed.add_field(
+                name="📖 /homophones",
+                value="Get homophone pairs for vocabulary prep.\n**Usage**: `/homophones 2` (for 2 pairs)",
+                inline=False
+            )
+            embed.add_field(
+                name="📖 /synoanto",
+                value="Get words with 3 synonyms and antonyms each.\n**Usage**: `/synoanto 4` (for 4 words)",
+                inline=False
+            )
+            embed.add_field(
+                name="📖 /vocabfiles",
+                value="Get links to the files used for vocab prep commands.\n**Usage**: `/vocabfiles`",
+                inline=False
+            )
+            embed.add_field(
+                name="📖 /subscribe",
+                value="Subscribe to daily vocab words via DM.\n**Usage**: `/subscribe 10` (for 10 words daily at 6:00 AM IST)",
+                inline=False
+            )
+            embed.add_field(
+                name="📖 /unsubscribe",
+                value="Unsubscribe from daily vocab DMs.\n**Usage**: `/unsubscribe`",
+                inline=False
+            )
+
+        elif category == "exam":
+            embed.add_field(
+                name="🎓 /nda",
+                value="Get an in-depth NDA guide.\n**Usage**: `/nda`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /cds",
+                value="Get an in-depth CDS guide.\n**Usage**: `/cds`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /wiki",
+                value="Get the r/NDATards official wiki link.\n**Usage**: `/wiki`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /mock",
+                value="Get links to online NDA mock tests.\n**Usage**: `/mock`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /pyqs",
+                value="Get links to NDA previous year question papers.\n**Usage**: `/pyqs`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /material",
+                value="Get Amazon links to NDA prep books (none sponsored).\n**Usage**: `/material`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /daysleftto",
+                value="Get the number of days remaining to NDA or CDS exam.\n**Usage**: `/daysleftto nda` or `/daysleftto cds`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /attemptnda",
+                value="Calculate NDA eligibility based on birthdate.\n**Usage**: `/attemptnda 01-07-2008`",
+                inline=False
+            )
+            embed.add_field(
+                name="🎓 /attemptcds",
+                value="Calculate CDS eligibility based on birthdate.\n**Usage**: `/attemptcds 01-07-2008`",
+                inline=False
+            )
+
+        elif category == "tools":
+            embed.add_field(
+                name="🛠️ /timer",
+                value="Run a study timer with pause/stop buttons.\n**Usage**: `/timer 25` (for 25 minutes)",
+                inline=False
+            )
+
+        embed.set_footer(text="Select a category to view more commands. Moderators can use /helpmod for moderation commands.")
+        await interaction.response.edit_message(embed=embed, view=self.view)
 
 class Misc(commands.Cog):
     def __init__(self, bot):
@@ -155,47 +296,81 @@ class Misc(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
 
-    @app_commands.command(name="help", description="Get help msg describing each command")
+    @app_commands.command(name="help", description="Get an interactive help message describing each command")
     async def help(self, interaction: discord.Interaction):
         embed = discord.Embed(
-            title="Help",
-            description="prefix is `-` though its useful only for `-bookmark` all other commands are slash only for technical reasons",
-            color=discord.Color.dark_grey(),
+            title="Help - General Commands",
+            description="Here are the commands available in this category. Use `-` as the prefix for hybrid commands (e.g., `-bookmark`). All other commands are slash commands (`/`).",
+            color=discord.Color.dark_teal(),
         )
+        embed.add_field(
+            name="🌟 /rule",
+            value="Get a specific server rule by number.\n**Usage**: `/rule 1` (for Rule 1)",
+            inline=False
+        )
+        embed.add_field(
+            name="🌟 /toss",
+            value="Toss a coin to make a decision.\n**Usage**: `/toss`",
+            inline=False
+        )
+        embed.add_field(
+            name="🌟 /books",
+            value="Get Amazon links to non-academic defence-related books (none sponsored).\n**Usage**: `/books`",
+            inline=False
+        )
+        embed.add_field(
+            name="🌟 -bookmark",
+            value="DMs you the message you replied to.\n**Usage**: Reply to a message with `-bookmark`",
+            inline=False
+        )
+        embed.set_footer(text="Select a category to view more commands. Moderators can use /helpmod for moderation commands.")
 
-        embed.add_field(name="`nda`", value="Get an in-depth nda guide.", inline=True)
-        embed.add_field(name="`cds`", value="Get an in-depth cds guide.", inline=True)
-        embed.add_field(name="`wiki`", value="Get link to r/NDATards official wiki.", inline=True)
-        embed.add_field(name="`mock`", value="Get links to online nda mock tests.", inline=True)
-        embed.add_field(name="`pyqs`", value="Get links to online nda pyq tests.", inline=True)
-        embed.add_field(name="`material`", value="Get amazon links to books for nda prep (none sponsored).", inline=True)
-        embed.add_field(name="`books`", value="Get amazon links to non academic defence related books (none sponsored).", inline=True)
-        embed.add_field(name="daysleftto", value="Get number of days remaining to either cds or nda exam. Usage: `/daysleftto nda` or `/daysleftto cds`", inline=True)
-        embed.add_field(name="attemptnda", value="Get number of attempts remaining to nda exam by birthdate. Usage: `/attemptnda DD-MM-YYYY`", inline=True)
-        embed.add_field(name="attemptcds", value="Get number of attempts remaining to cds exam by birthdate. Usage: `/attemptcds DD-MM-YYYY`", inline=True)
-        embed.add_field(name="timer", value="Run a study timer. Usage: `/timer number-of-minutes`", inline=True)
-        embed.add_field(name="rule", value="Get a specific server rule by rule number. Usage: `/rule number(1-9)`", inline=True)
-        embed.add_field(name="bookmark", value="**Can only be run using `-` prefix**. DMs you the msg you replied to. Usage: reply to a msg with `-bookmark`", inline=True)
-        embed.add_field(name="toss", value="Toss a coin.", inline=True)
-    
-        await interaction.response.send_message(embed=embed)
-    
-    @app_commands.command(name="helpmod", description="Get help msg describing each moderation command.")
+        view = HelpView()
+        await interaction.response.send_message(embed=embed, view=view)
+
+    @app_commands.command(name="helpmod", description="Get help message describing each moderation command")
     async def helpmod(self, interaction: discord.Interaction):
+        await interaction.response.defer()  # Defer the response to avoid timeout
+
         embed = discord.Embed(
-            title="Helpmod",
-            description="All commands are slash only. Can only be run by people with adequate perms.",
-            color=discord.Color.red(),
+            title="⚠️ Moderation Commands",
+            description="These are slash commands (`/`) for server moderation. You need appropriate permissions (e.g., Kick Members, Ban Members, Manage Channels) to use them.",
+            color=discord.Color.dark_red(),
         )
 
-        embed.add_field(name="`kick`", value="`/kick @user`", inline=True)
-        embed.add_field(name="`ban`", value="`/ban @user`", inline=True)
-        embed.add_field(name="`unban`", value="`/unban user-id` Get user-id by enabling discord dev features in your profile settings then right click on user to unban and get the user id.", inline=True)
-        embed.add_field(name="`mute`", value="`/mute @user time-limit reason` time limit can be `10m`, `2h`, `1d`, etc.", inline=True)
-        embed.add_field(name="`lock`", value="locks a channel `/lock`", inline=True)
-        embed.add_field(name="`unlock`", value="unlocks a channel `/lock`", inline=True)
+        embed.add_field(
+            name="👢 /kick",
+            value="Kick a user from the server.\n**Usage**: `/kick @user`\n**Example**: `/kick @TroubleMaker`",
+            inline=False
+        )
+        embed.add_field(
+            name="🔨 /ban",
+            value="Ban a user from the server.\n**Usage**: `/ban @user`\n**Example**: `/ban @Spammer`",
+            inline=False
+        )
+        embed.add_field(
+            name="🔓 /unban",
+            value="Unban a user by their user ID.\n**Usage**: `/unban user-id`\n**Example**: `/unban 123456789012345678`\n**Note**: Enable Developer Mode in Discord (Settings > Appearance), right-click a banned user in the ban list, and copy their ID.",
+            inline=False
+        )
+        embed.add_field(
+            name="🤫 /mute",
+            value="Mute a user for a specified time.\n**Usage**: `/mute @user time-limit reason`\n**Example**: `/mute @Noisy 1h Too loud`\n**Time Units**: `s` (seconds), `m` (minutes), `h` (hours), `d` (days)",
+            inline=False
+        )
+        embed.add_field(
+            name="🔒 /lock",
+            value="Lock the current channel to prevent users from sending messages.\n**Usage**: `/lock`\n**Note**: Requires Manage Channels permission.",
+            inline=False
+        )
+        embed.add_field(
+            name="🔓 /unlock",
+            value="Unlock the current channel to allow users to send messages again.\n**Usage**: `/unlock`\n**Note**: Requires Manage Channels permission.",
+            inline=False
+        )
 
-        await interaction.response.send_message(embed=embed)
+        embed.set_footer(text="For moderators only. Contact an admin if you lack permissions.")
+        await interaction.followup.send(embed=embed)  # Send the response after deferring
 
 async def setup(bot):
     await bot.add_cog(Misc(bot))
