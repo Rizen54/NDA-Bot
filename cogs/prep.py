@@ -311,7 +311,7 @@ class Prep(commands.Cog):
             name="🔗 Resources:",
             value=(
                 "[Mockers](https://www.mockers.in/exam/nda-mock-test)\n"
-                "[Chapter-wise All subj pyqs Self Studys](https://www.selfstudys.com/books/nda-previous-year-paper/english/chapter-wise)"
+                "[Chapter-wise All subj pyqs Self Studys](https://www.selfstudys.com/books/nda-previous-year-paper/english/chapter-wise)\n"
                 "[EduRev](https://edurev.in/courses/8741_NDA--National-Defence-Academy--Mock-Test-Series)"
             ),
             inline=False,
