@@ -24,6 +24,8 @@ class Misc(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
+        intro_channel = self.bot.get_channel(1343570812275523639)
+        log_channel = self.bot.get_channel(1346165101807403098)
         if message.author.bot:
             return  # Ignore bots
 
@@ -39,9 +41,20 @@ class Misc(commands.Cog):
 
         try:
             await member.add_roles(role, reason="Sent message in intro channel")
-            self.bot.get_channel(1346165101807403098).send(f"Gave {role.name} role to {member.display_name}")
+            log_channel.send(f"Gave {role.name} role to {member.display_name}")
         except Exception as e:
-            self.bot.get_channel(1346165101807403098).send(f"Failed to give intro role: {e}")
+            log_channel.send(f"Failed to give intro role: {e}")
+        
+        try:
+            async for msg in intro_channel.history(limit=100):
+                if msg.author.id == self.bot.user.id and member in msg.mentions:
+                    await msg.delete()
+                    break
+            else:
+                # If no message was found, log it but proceed
+                await log_channel.send(f"Could not find welcome message for {member.display_name} to delete.")
+        except Exception as e:
+            await log_channel.send(f"Failed to delete welcome message for {member.display_name}: {e}")
 
 
     @app_commands.command(name="rule", description="Give a server rule spcified by rule num.")
