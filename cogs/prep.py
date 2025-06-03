@@ -1,16 +1,16 @@
 from random import sample
 from datetime import datetime, date
 import discord
-from discord import app_commands, Interaction, ui
+from discord import Interaction
 from discord.ext import commands, tasks
 import asyncio
-
+from typing import Union
 
 class Prep(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        #Read files for english
+        # Read files for english
         with open("english/vocab.txt", "r") as f:
             self.vocab = f.readlines()
         with open("english/homophones.txt", "r") as f:
@@ -44,7 +44,6 @@ class Prep(commands.Cog):
                 pass
         except Exception as e:
             print(f"Error loading subscriptions: {e}")
-    
 
     def save_subscriptions(self):
         """Save subscription data from self.subscriptions to subscriptions.txt."""
@@ -52,43 +51,63 @@ class Prep(commands.Cog):
             for user_id, word_count in self.subscriptions.items():
                 f.write(f"{user_id},{word_count}\n")
 
-    @app_commands.command(name="subscribe", description="Subscribe to daily vocab words in DM")
-    async def subscribe(self, interaction: discord.Interaction, number: int = 10):
+    @commands.hybrid_command(name="subscribe", description="Subscribe to daily vocab words in DM")
+    async def subscribe(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], number: int = 10):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer(ephemeral=True)
+
         # Validate the number of words
         if number < 1:
-            await interaction.response.send_message("Please request at least 1 word.", ephemeral=True)
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send("Please request at least 1 word.", ephemeral=True)
+            else:
+                await interaction_or_ctx.reply("Please request at least 1 word.")
             return
         if number > 20:
-            await interaction.response.send_message("Max limit is 20 words!", ephemeral=True)
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send("Max limit is 20 words!", ephemeral=True)
+            else:
+                await interaction_or_ctx.reply("Max limit is 20 words!")
             return
 
         # Add user to subscriptions
-        user_id = interaction.user.id
+        user_id = interaction_or_ctx.user.id if isinstance(interaction_or_ctx, discord.Interaction) else interaction_or_ctx.author.id
         self.subscriptions[user_id] = number
         self.save_subscriptions()
 
         embed = discord.Embed(
-                title="Subscription Successful",
-                description=f"You'll receive {number} vocab words every morning at 6:00 AM IST via DM.",
-                color=discord.Color.green(),
-            )
-        await interaction.response.send_message(embed=embed)
-        
-    @app_commands.command(name="unsubscribe", description="Unsubscribe from daily vocab DMs")
-    async def unsubscribe(self, interaction: discord.Interaction):
-        user_id = interaction.user.id
+            title="Subscription Successful",
+            description=f"You'll receive {number} vocab words every morning at 6:00 AM IST via DM.",
+            color=discord.Color.green(),
+        )
+
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed, ephemeral=True)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
+
+    @commands.hybrid_command(name="unsubscribe", description="Unsubscribe from daily vocab DMs")
+    async def unsubscribe(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer(ephemeral=True)
+
+        user_id = interaction_or_ctx.user.id if isinstance(interaction_or_ctx, discord.Interaction) else interaction_or_ctx.author.id
         if user_id in self.subscriptions:
             del self.subscriptions[user_id]
             self.save_subscriptions()
-            await interaction.response.send_message(
-                "Unsubscribed! You will no longer receive daily vocab DMs.", ephemeral=True
-            )
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send("Unsubscribed! You will no longer receive daily vocab DMs.", ephemeral=True)
+            else:
+                await interaction_or_ctx.reply("Unsubscribed! You will no longer receive daily vocab DMs.")
         else:
-            await interaction.response.send_message(
-                "You are not subscribed to daily vocab DMs.", ephemeral=True
-            )
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send("You are not subscribed to daily vocab DMs.", ephemeral=True)
+            else:
+                await interaction_or_ctx.reply("You are not subscribed to daily vocab DMs.")
 
-    @tasks.loop(minutes=10)  # Check every minutes
+    @tasks.loop(minutes=10)  # Check every 10 minutes
     async def send_daily_vocab(self):
         # Get current local time (assumed to be IST)
         now = datetime.now()
@@ -132,152 +151,170 @@ class Prep(commands.Cog):
     async def before_send_daily_vocab(self):
         await self.bot.wait_until_ready()  # Wait for the bot to be ready before starting the task
 
+    @commands.hybrid_command(name="vocab", description="Get hard words for vocab prep")
+    async def vocabulary(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], number: int = 1):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
 
-    @app_commands.command(name="vocab", description="Get hard words for vocab prep")
-    async def vocabulary(self, interaction: discord.Interaction, number: int=1):
-        await interaction.response.defer()
-
-        if number>20:
+        if number > 20:
             embed = discord.Embed(
-                title=f"❌ Max limit is 20 words!",
+                title="❌ Max limit is 20 words!",
                 color=discord.Color.red(),
             )
-
-        elif number<=0:
+        elif number <= 0:
             embed = discord.Embed(
-                title=f"❌ Ask for at least 1 word!",
+                title="❌ Ask for at least 1 word!",
                 color=discord.Color.red(),
             )
-
         else:
             returnlist = sample(self.vocab, number)
-
             embed = discord.Embed(
                 title=f"Here are {number} words",
                 description="\n".join(returnlist),
                 color=discord.Color.blue(),
             )
 
-        await interaction.followup.send(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    
-    @app_commands.command(name="idioms", description="Get idioms for vocab prep")
-    async def give_idioms(self, interaction: discord.Interaction, number: int=1):
-        await interaction.response.defer()
+    @commands.hybrid_command(name="idioms", description="Get idioms for vocab prep")
+    async def give_idioms(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], number: int = 1):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
 
-        if number>20:
+        if number > 20:
             embed = discord.Embed(
-                title=f"❌ Max limit is 20 idioms!",
+                title="❌ Max limit is 20 idioms!",
                 color=discord.Color.red(),
             )
-            await interaction.followup.send(embed=embed)
-            return
-        elif number<=0:
+        elif number <= 0:
             embed = discord.Embed(
-                title=f"❌ Ask for at least 1 idiom!",
+                title="❌ Ask for at least 1 idiom!",
                 color=discord.Color.red(),
             )
-
         else:
             returnlist = sample(self.idioms, number)
-
             embed = discord.Embed(
                 title=f"Here are {number} idioms",
                 description="\n".join(returnlist),
                 color=discord.Color.blue(),
             )
 
-        await interaction.followup.send(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
+    @commands.hybrid_command(name="homophones", description="Get homophones for vocab prep")
+    async def give_homophones(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], number: int = 1):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
 
-    @app_commands.command(name="homophones", description="Get homophones for vocab prep")
-    async def give_homophones(self, interaction: discord.Interaction, number: int=1):
-        await interaction.response.defer()
-
-        if number>20:
+        if number > 20:
             embed = discord.Embed(
-                title=f"❌ Max limit is 20 pairs!",
+                title="❌ Max limit is 20 pairs!",
                 color=discord.Color.red(),
             )
-
-        elif number<=0:
+        elif number <= 0:
             embed = discord.Embed(
-                title=f"❌ Ask for at least 1 homphone pair!",
+                title="❌ Ask for at least 1 homophone pair!",
                 color=discord.Color.red(),
             )
-
-
         else:
             returnlist = sample(self.homophones, number)
-
             embed = discord.Embed(
                 title=f"Here are {number} homophones",
                 description="\n".join(returnlist),
                 color=discord.Color.blue(),
             )
 
-        await interaction.followup.send(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
+    @commands.hybrid_command(name="synoanto", description="Get words with 3 synonyms and antonyms for vocab prep")
+    async def give_synoanto(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], number: int = 1):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
 
-    @app_commands.command(name="synoanto", description="Get words with 3 synonyms and antonyms for vocab prep")
-    async def give_synoanto(self, interaction: discord.Interaction, number: int=1):
-        await interaction.response.defer()
-
-        if number>20:
+        if number > 20:
             embed = discord.Embed(
-                title=f"❌ Max limit is 20 words!",
+                title="❌ Max limit is 20 words!",
                 color=discord.Color.red(),
             )
-
-        elif number<=0:
+        elif number <= 0:
             embed = discord.Embed(
-                title=f"❌ Ask for at least 1 word!",
+                title="❌ Ask for at least 1 word!",
                 color=discord.Color.red(),
             )
-
-
         else:
             returnlist = sample(self.synoanto, number)
-
             embed = discord.Embed(
                 title=f"Here are {number} Words with 3 synonyms and antonyms each",
                 description="\n".join(returnlist),
                 color=discord.Color.blue(),
             )
 
-        await interaction.followup.send(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    
-    @app_commands.command(name="vocabfiles", description="Get list of files which bot uses for vocab prep commands")
-    async def vocabfiles(self, interaction: discord.Interaction):
-        await interaction.response.defer()
-        returnlist = ["[Vocab](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/vocab.txt)",
-                      "[Idioms](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/idioms.txt)",
-                      "[Synonyms/Antonyms](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/synoanto.txt)",
-                      "[Homophones](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/homophones.txt)"]
+    @commands.hybrid_command(name="vocabfiles", description="Get list of files which bot uses for vocab prep commands")
+    async def vocabfiles(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
+        returnlist = [
+            "[Vocab](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/vocab.txt)",
+            "[Idioms](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/idioms.txt)",
+            "[Synonyms/Antonyms](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/synoanto.txt)",
+            "[Homophones](https://raw.githubusercontent.com/Rizen54/NDA-Bot/refs/heads/main/english/homophones.txt)"
+        ]
 
         embed = discord.Embed(
-            title=f"Here is the list to files that are used by me for vocab prep commands",
+            title="Here is the list of files that are used by me for vocab prep commands",
             description="\n".join(returnlist),
             color=discord.Color.blue(),
         )
 
-        await interaction.followup.send(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
+    @commands.hybrid_command(name="nda", description="Get an in-depth NDA guide")
+    async def nda_guide(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
 
-    @app_commands.command(name="nda", description="Get an in-depth NDA guide")
-    async def nda_guide(self, interaction: discord.Interaction):
         embed = discord.Embed(
             title="📚 NDA Guide",
-            description="[Here is an in-depth nda guide](https://tranquilizer014.blogspot.com/2025/02/nda-national-defence-academy-entry.html)",
+            description="[Here is an in-depth NDA guide](https://tranquilizer014.blogspot.com/2025/02/nda-national-defence-academy-entry.html)",
             color=discord.Color.blue(),
         )
 
         embed.add_field(name="By", value="Tranquilizer", inline=True)
-        await interaction.response.send_message(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    @app_commands.command(name="cds", description="Get an in-depth CDS guide")
-    async def cds_guide(self, interaction: discord.Interaction):
+    @commands.hybrid_command(name="cds", description="Get an in-depth CDS guide")
+    async def cds_guide(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         embed = discord.Embed(
             title="📚 CDS Guide",
             description="[Here is an in-depth CDS guide](https://tranquilizer014.blogspot.com/2025/02/combined-defence-services-cds.html)",
@@ -285,22 +322,34 @@ class Prep(commands.Cog):
         )
         
         embed.set_footer(text="By Tranquilizer")
-        await interaction.response.send_message(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    @app_commands.command(
-        name="wiki", description="Get the r/NDATards official wiki link"
-    )
-    async def wiki(self, interaction: discord.Interaction):
+    @commands.hybrid_command(name="wiki", description="Get the r/NDATards official wiki link")
+    async def wiki(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         embed = discord.Embed(
             title="📖 Wiki",
             description="[Link](https://www.reddit.com/r/NDATards/comments/1kgn848/rndatards_official_wiki)",
             color=discord.Color.blue(),
         )
         embed.set_footer(text="By the great contributors of NDATards")
-        await interaction.response.send_message(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    @app_commands.command(name="mock", description="Get links to online NDA mock tests")
-    async def mock(self, interaction: discord.Interaction):
+    @commands.hybrid_command(name="mock", description="Get links to online NDA mock tests")
+    async def mock(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         embed = discord.Embed(
             title="📝 NDA Mock Test Links",
             description="Here are some great platforms to practice NDA mock tests:",
@@ -317,10 +366,17 @@ class Prep(commands.Cog):
             inline=False,
         )
 
-        await interaction.response.send_message(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    @app_commands.command(name="pyqs", description="Get link to online mock NDA tests")
-    async def pyqs(self, interaction: discord.Interaction):
+    @commands.hybrid_command(name="pyqs", description="Get links to online NDA previous year question papers")
+    async def pyqs(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         embed = discord.Embed(
             title="📚 NDA PYQs",
             description="Here are some curated mock test & previous year question paper links:",
@@ -338,14 +394,20 @@ class Prep(commands.Cog):
             inline=False,
         )
 
-        await interaction.response.send_message(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    @app_commands.command(name="material", description="List of amazon links to good prep books (none sponsored)")
-    async def material(self, interaction: discord.Interaction):
+    @commands.hybrid_command(name="material", description="List of Amazon links to good prep books (none sponsored)")
+    async def material(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         embed = discord.Embed(
             title="📚 Material",
             color=discord.Color.blue(),
-
         )
 
         embed.add_field(
@@ -361,52 +423,59 @@ class Prep(commands.Cog):
         )
         embed.set_footer(text="Suggest more books in #suggestions")
 
-        await interaction.response.send_message(embed=embed)
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    @app_commands.command(
-        name="daysleftto",
-        description="Gives number of days remaining to nda or cds exam",
-    )
-    async def dlte(self, interaction: discord.Interaction, exam: str):
+    @commands.hybrid_command(name="daysleftto", description="Gives number of days remaining to NDA or CDS exam")
+    async def dlte(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], exam: str):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         embed = discord.Embed(colour=discord.Colour.red())
 
-        if exam.lower() == "nda":
-            exam_date = datetime(2025, 9, 14)  # NDA 2 2025
-            today = datetime.now()
-            days_remaining = (exam_date - today).days
-        elif exam.lower() == "cds":
-            exam_date = datetime(2025, 9, 14)  # CDS 2 2025
-            today = datetime.now()
-            days_remaining = (exam_date - today).days
-
         try:
+            if exam.lower() == "nda":
+                exam_date = datetime(2025, 9, 14)  # NDA 2 2025
+                today = datetime.now()
+                days_remaining = (exam_date - today).days
+            elif exam.lower() == "cds":
+                exam_date = datetime(2025, 9, 14)  # CDS 2 2025
+                today = datetime.now()
+                days_remaining = (exam_date - today).days
+            else:
+                raise ValueError("Invalid exam type")
+
             if days_remaining > 0:
                 embed.title = f"🗓️ ``{days_remaining} days`` left until the {exam} exam on `{exam_date.date()}`."
             elif days_remaining == 0:
                 embed.title = f"🎯 The {exam} exam is **today**! Give it your best!"
             else:
                 embed.title = f"✅ The last {exam} exam date has **passed**. Date for the next will be set soon."
+        except ValueError:
+            embed.title = "Please enter either nda or cds."
 
-            await interaction.response.send_message(embed=embed)
-        except:
-            embed.title = f"Please enter either nda or cds."
-            await interaction.response.send_message(embed=embed)
-            
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
 
-    @app_commands.command(
-        name="attemptnda",
-        description="Calculate your NDA eligibility based on your date of birth.",
-    )
-    async def attemptnda(self, interaction: discord.Interaction, birthdate: str):
+    @commands.hybrid_command(name="attemptnda", description="Calculate your NDA eligibility based on your date of birth")
+    async def attemptnda(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], birthdate: str):
         """
         Calculates NDA eligibility based on DOB.
-        Usage: /attemptnda DD-MM-YYYY
+        Usage: /attemptnda DD-MM-YYYY or -attemptnda DD-MM-YYYY
         Example: /attemptnda 23-09-2008
         """
-        await interaction.response.defer()
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         try:
             birthdate = str(birthdate).replace("/", "-")
-            parts = birthdate.replace("/", "-").split("-")
+            parts = birthdate.split("-")
             if len(parts) == 3:
                 day = parts[0].zfill(2)
                 month = parts[1].zfill(2)
@@ -434,9 +503,14 @@ class Prep(commands.Cog):
                     eligible_attempts.append(f"NDA 2 {year}")
 
             if not eligible_attempts:
-                await interaction.followup.send(
-                    "❌ You are not eligible for any upcoming NDA exams based on your date of birth."
-                )
+                if isinstance(interaction_or_ctx, discord.Interaction):
+                    await interaction_or_ctx.followup.send(
+                        "❌ You are not eligible for any upcoming NDA exams based on your date of birth."
+                    )
+                else:
+                    await interaction_or_ctx.reply(
+                        "❌ You are not eligible for any upcoming NDA exams based on your date of birth."
+                    )
                 return
 
             embed = discord.Embed(
@@ -451,34 +525,44 @@ class Prep(commands.Cog):
             )
             embed.add_field(
                 name="⚠️ NOTE:",
-                value="If you're in school currently, the first nda attempt you're eligible for will be NDA 2 of your class 12th year. For eg: if you're in class 12th in 2026, you can apply for nda 2 2026 and the upcoming nda attempts. This is because joining of NDA 1 happens in January and you won't have passed 12th by then so youre not eligible for nda 1 during 12th or any previous attempts.",
+                value="If you're in school currently, the first NDA attempt you're eligible for will be NDA 2 of your class 12th year. For example: if you're in class 12th in 2026, you can apply for NDA 2 2026 and the upcoming NDA attempts. This is because joining of NDA 1 happens in January, and you won't have passed 12th by then, so you're not eligible for NDA 1 during 12th or any previous attempts.",
             )
             embed.set_footer(text=f"Total Eligible Attempts: {len(eligible_attempts)}")
-            await interaction.followup.send(embed=embed)
+
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send(embed=embed)
+            else:
+                await interaction_or_ctx.reply(embed=embed)
 
         except ValueError:
-            await interaction.followup.send(
-                "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
-            )
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send(
+                    "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
+                )
+            else:
+                await interaction_or_ctx.reply(
+                    "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
+                )
 
-    @app_commands.command(
-        name="attemptcds",
-        description="Calculate your CDS eligibility based on your date of birth.",
-    )
-    async def attemptcds(self, interaction: discord.Interaction, birthdate: str):
+    @commands.hybrid_command(name="attemptcds", description="Calculate your CDS eligibility based on your date of birth")
+    async def attemptcds(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], birthdate: str):
         """
         Calculates CDS eligibility based on DOB.
-        Usage: /attemptcds DD-MM-YYYY
+        Usage: /attemptcds DD-MM-YYYY or -attemptcds DD-MM-YYYY
         Example: /attemptcds 23-09-2008
         """
-        await interaction.response.defer()
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
         birthdate = str(birthdate).replace("/", "-")
-        parts = birthdate.replace("/", "-").split("-")
+        parts = birthdate.split("-")
         if len(parts) == 3:
             day = parts[0].zfill(2)
             month = parts[1].zfill(2)
             year = parts[2]
             birthdate = f"{day}-{month}-{year}"
+
         try:
             dob = datetime.strptime(birthdate, "%d-%m-%Y").date()
             today = date.today()
@@ -512,9 +596,14 @@ class Prep(commands.Cog):
                     cds_attempts[attempt2] = academies2
 
             if not cds_attempts:
-                await interaction.followup.send(
-                    "❌ You are not eligible for any upcoming CDS attempts based on your date of birth."
-                )
+                if isinstance(interaction_or_ctx, discord.Interaction):
+                    await interaction_or_ctx.followup.send(
+                        "❌ You are not eligible for any upcoming CDS attempts based on your date of birth."
+                    )
+                else:
+                    await interaction_or_ctx.reply(
+                        "❌ You are not eligible for any upcoming CDS attempts based on your date of birth."
+                    )
                 return
 
             embed = discord.Embed(
@@ -528,25 +617,29 @@ class Prep(commands.Cog):
                 embed.add_field(name=attempt, value=", ".join(academies), inline=False)
 
             embed.set_footer(text=f"Total Eligible CDS Attempts: {total_attempts}")
-            await interaction.followup.send(embed=embed)
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send(embed=embed)
+            else:
+                await interaction_or_ctx.reply(embed=embed)
 
         except ValueError:
-            await interaction.followup.send(
-                "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
-            )
+            if isinstance(interaction_or_ctx, discord.Interaction):
+                await interaction_or_ctx.followup.send(
+                    "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
+                )
+            else:
+                await interaction_or_ctx.reply(
+                    "⚠️ Invalid date format. Please use `DD-MM-YYYY` (e.g., 01-07-2011)."
+                )
 
-    @commands.hybrid_command(name="timer", description="Start a timer with buttons.")
+    @commands.hybrid_command(name="timer", description="Start a timer with buttons")
     async def timer(self, ctx: commands.Context, minutes: int = 25):
+        # Already a hybrid command; no changes needed since it uses ctx
         view = timerView(user_id=ctx.author.id, duration=minutes, bot=ctx.bot)
-        await view.start(
-            ctx
-        )  # This feels odd so I won't make this an interaction only command
-        # Feels like it would fuck up since interaction responses tend to only want one reply
-        # and they typically want it within a minute or so
-
+        await view.start(ctx)
 
 # Timer backend code
-class timerView(ui.View):
+class timerView(discord.ui.View):
     def __init__(self, user_id: int, duration: int = 25, bot=None):
         super().__init__(timeout=None)
         self.bot = bot
@@ -614,9 +707,7 @@ class timerView(ui.View):
         embed = await self._get_embed(guild=ctx.guild)
 
         if ctx.interaction:
-            await ctx.interaction.response.send_message(
-                embed=embed, view=self
-            )
+            await ctx.interaction.response.send_message(embed=embed, view=self)
             self.message = await ctx.interaction.original_response()
         else:
             self.message = await ctx.send(embed=embed, view=self)
@@ -656,8 +747,8 @@ class timerView(ui.View):
             return False
         return True
 
-    @ui.button(label="Pause", style=discord.ButtonStyle.primary)
-    async def pause_button(self, interaction: Interaction, button: ui.Button):
+    @discord.ui.button(label="Pause", style=discord.ButtonStyle.primary)
+    async def pause_button(self, interaction: Interaction, button: discord.ui.Button):
         if not self.paused:
             # Pause timer
             self._pause_event.clear()
@@ -672,8 +763,8 @@ class timerView(ui.View):
         embed = await self._get_embed(guild=interaction.guild)
         await interaction.response.edit_message(embed=embed, view=self)
 
-    @ui.button(label="Stop", style=discord.ButtonStyle.danger)
-    async def stop_button(self, interaction: Interaction, button: ui.Button):
+    @discord.ui.button(label="Stop", style=discord.ButtonStyle.danger)
+    async def stop_button(self, interaction: Interaction, button: discord.ui.Button):
         self._stop_event.set()
         self.stopped = True
         if self.task:
@@ -685,7 +776,6 @@ class timerView(ui.View):
 
         embed = await self._get_embed(guild=interaction.guild)
         await interaction.response.edit_message(embed=embed, view=self)
-
 
 async def setup(bot):
     await bot.add_cog(Prep(bot))
