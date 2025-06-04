@@ -25,17 +25,8 @@ class Prep(commands.Cog):
         self.subscriptions_file = "../subscriptions.txt"
         self.load_subscriptions()
 
-        # Load last sent date from file
-        self.last_sent_date = None
-        self.last_sent_date_file = "../last_sent_date.txt"
-        self.load_last_sent_date()
-
         # Start the background task for sending daily DMs
         self.last_sent_date = None  # Track the last date we sent messages to avoid duplicates
-        self.send_daily_vocab.start()
-
-        if self.send_daily_vocab.is_running():
-            self.send_daily_vocab.stop()
         self.send_daily_vocab.start()
 
     def load_subscriptions(self):
@@ -140,7 +131,10 @@ class Prep(commands.Cog):
                     continue  # Skip if user can't be found
 
                 # Select random words
-                selected_words = sample(self.vocab, word_count)
+                if not self.vocab:
+                    await user.send("Sorry, the vocabulary list is empty!")
+                    continue
+                selected_words = sample(self.vocab, k=min(word_count, len(self.vocab)))
 
                 # Create an embed with the selected words
                 embed = discord.Embed(
@@ -156,34 +150,6 @@ class Prep(commands.Cog):
     @send_daily_vocab.before_loop
     async def before_send_daily_vocab(self):
         await self.bot.wait_until_ready()  # Wait for the bot to be ready before starting the task
-    
-    
-    def load_last_sent_date(self):
-        """Load the last sent date from a file."""
-        try:
-            with open(self.last_sent_date_file, "r", encoding="utf-8") as f:
-                date_str = f.read().strip()
-                if date_str:
-                    self.last_sent_date = datetime.strptime(date_str, "%Y-%m-%d").date()
-        except FileNotFoundError:
-            # If the file doesn't exist, create it
-            with open(self.last_sent_date_file, "w", encoding="utf-8") as f:
-                pass
-        except Exception as e:
-            print(f"Error loading last sent date: {e}")
-
-    def save_last_sent_date(self):
-        """Save the last sent date to a file."""
-        try:
-            with open(self.last_sent_date_file, "w", encoding="utf-8") as f:
-                if self.last_sent_date:
-                    f.write(self.last_sent_date.strftime("%Y-%m-%d"))
-        except Exception as e:
-            print(f"Error saving last sent date: {e}")
-
-    async def cog_unload(self):
-        """Stop the task when the cog is unloaded."""
-        self.send_daily_vocab.stop()
 
     @commands.hybrid_command(name="vocab", description="Get hard words for vocab prep")
     async def vocabulary(self, interaction_or_ctx: Union[discord.Interaction, commands.Context], number: int = 1):
