@@ -1,192 +1,455 @@
-**a bad egg** - a person who is unreliable or morally bad  
-**a barking dog seldom bites** - someone who makes threats rarely acts on them  
-**a bird in the hand is worth two in the bush** - value what you have rather than risk losing it  
-**a blessing in disguise** - something that seems bad but turns out to be good  
-**a bolt from the blue** - something unexpected or surprising  
-**a chip off the old block** - someone who resembles their parent in character  
-**a chip on the shoulder** - holding a grudge or feeling resentful  
-**a clean slate** - a fresh start without past mistakes or debts  
-**a cock and bull story** - an unbelievable or absurd tale  
-**a couch potato** - someone who is very lazy and spends time watching TV  
-**a dime a dozen** - very common and of little value  
-**a drop in the bucket** - a small, insignificant amount compared to what's needed  
-**a fair-weather friend** - someone who is only supportive in good times  
-**a fish out of water** - feeling uncomfortable in an unfamiliar situation  
-**a flash in the pan** - something that shows promise but fails to last  
-**a fool's paradise** - a state of happiness based on false hopes  
-**a hot potato** - a controversial or difficult issue that people avoid  
-**a leopard can't change its spots** - people cannot change their basic nature  
-**a needle in a haystack** - something very difficult to find  
-**a piece of cake** - something very easy to do  
-**a shot in the arm** - something that has a sudden, strong, positive effect  
-**a stone's throw** - a very short distance  
-**a storm in a teacup** - a big fuss over something unimportant  
-**a wolf in sheep's clothing** - someone who hides harmful intentions behind a kind facade  
-**add fuel to the fire** - to make a bad situation worse  
-**all bark and no bite** - someone who threatens but doesn't act  
-**all ears** - listening eagerly and attentively  
-**all in the same boat** - facing the same challenges or situation  
-**an arm and a leg** - extremely expensive  
-**apple of one's eye** - someone or something cherished above others  
-**at a snail's pace** - moving very slowly  
-**at loggerheads** - in strong disagreement or conflict  
-**at the drop of a hat** - immediately, without hesitation  
-**back to square one** - returning to the starting point after a failure  
-**back to the wall** - in a desperate or difficult situation with no escape  
-**bark up the wrong tree** - to make a mistake about a person or situation  
-**bear the palm** - to be the winner or achieve victory  
-**beat around the bush** - to avoid talking about something directly  
-**beat the drum** - to promote or support something enthusiastically  
-**behind the scenes** - happening secretly or not publicly visible  
-**between a rock and a hard place** - facing two difficult choices  
-**between the cup and the lips** - failing at the last moment before success  
-**bite the bullet** - to endure a painful or difficult situation bravely  
-**bite the dust** - to fail or die  
-**blow hot and cold** - to be inconsistent in opinions or actions  
-**blow one's own trumpet** - to boast about one's achievements  
-**break a leg** - a way to wish someone good luck, especially in performance  
-**break the ice** - to start a conversation in an awkward situation  
-**burn the bridges** - to destroy all possible ways of retreat  
-**burn the midnight oil** - to work late into the night  
-**bury the hatchet** - to end a conflict and make peace  
-**by hook or by crook** - by any means necessary, fair or unfair  
-**call a spade a spade** - to speak plainly and truthfully, even if unpleasant  
-**carry the day** - to win or succeed in a contest or situation  
-**cast pearls before swine** - to offer something valuable to those who don't appreciate it  
-**caught red-handed** - caught in the act of doing something wrong  
-**chew the fat** - to have a casual conversation  
-**cross the Rubicon** - to take an irreversible step or decision  
-**cry over spilt milk** - to regret something that cannot be changed  
-**cut corners** - to do something cheaply or quickly, often poorly  
-**cut to the chase** - to get to the point without wasting time  
-**decke up** - to put on special clothes to appear attractive  
-**dig one's own grave** - to cause one's own downfall  
-**do a double take** - to look again in surprise at something unexpected  
-**doing the rounds** - being passed from one person to another  
-**don't count your chickens before they hatch** - don't assume success until it happens  
-**don't judge a book by its cover** - don't judge someone based on appearance  
-**down to the wire** - until the very last moment or deadline  
-**draw a blank** - to fail to remember or find something  
-**eat humble pie** - to admit one's mistake and apologize  
-**every cloud has a silver lining** - every bad situation has a positive aspect  
-**face the music** - to accept the consequences of one's actions  
-**fall by the wayside** - to fail to persist or continue  
-**feather in one's cap** - an achievement to be proud of  
-**fight tooth and nail** - to try very hard to achieve something  
-**fit as a fiddle** - in very good health  
-**fly off the handle** - to suddenly become very angry  
-**get a taste of your own medicine** - to experience what you've done to others  
-**get cold feet** - to become nervous and back out of something  
-**get out of hand** - to become uncontrollable or chaotic  
-**get the ball rolling** - to start a process or activity  
-**give a slip** - to escape or get away from someone  
-**give the benefit of the doubt** - to believe someone without proof against them  
-**give the cold shoulder** - to deliberately ignore or treat coldly  
-**go down in flames** - to fail spectacularly  
-**go the extra mile** - to make an extra effort to achieve something  
-**have a finger in every pie** - to be involved in many activities  
-**hit below the belt** - to act unfairly or cruelly  
-**hit the jackpot** - to achieve sudden success or gain a large reward  
-**hit the nail on the head** - to describe or do something exactly right  
-**hold your horses** - to wait or be patient  
-**ignorance is bliss** - being unaware of something unpleasant avoids worry  
-**in a nutshell** - summarized briefly and clearly  
-**in hot water** - in trouble or facing difficulties  
-**in the black** - financially profitable or solvent  
-**in the doghouse** - in trouble or disfavor with someone  
-**in the limelight** - receiving a lot of public attention  
-**in the nick of time** - just before it's too late  
-**in the same breath** - saying two contradictory things at once  
-**jump on the bandwagon** - to join a popular trend or activity  
-**jump the gun** - to act prematurely or too soon  
-**keep an eye on** - to watch or monitor closely  
-**keep one's finger on the pulse** - to stay aware of recent developments  
-**kick the bucket** - to die  
-**kill two birds with one stone** - to achieve two goals with one action  
-**leave no stone unturned** - to try every possible course of action  
-**let sleeping dogs lie** - to avoid stirring up trouble  
-**let the cat out of the bag** - to reveal a secret or hidden fact  
-**look a gift horse in the mouth** - to be ungrateful for a gift or opportunity  
-**make a clean breast of it** - to confess fully and honestly  
-**make a mountain out of a molehill** - to exaggerate a minor issue  
-**make ends meet** - to manage financially with limited resources  
-**make hay while the sun shines** - to take advantage of a favorable opportunity  
-**make up one's mind** - to decide or reach a firm decision  
-**mean business** - to be serious about what you announce  
-**miss the boat** - to miss an opportunity  
-**no pain, no gain** - success requires hard work and effort  
-**not a bed of roses** - not an easy or comfortable situation  
-**off the cuff** - done without preparation; impromptu  
-**on a wild goose chase** - pursuing something that is unattainable  
-**on cloud nine** - extremely happy or elated  
-**on the ball** - being alert and competent in one's work  
-**on the ropes** - in a state of near defeat or failure  
-**once in a blue moon** - very rarely  
-**out of the blue** - unexpectedly or without warning  
-**over the moon** - extremely happy or excited  
-**paper over the cracks** - to hide faults or difficulties superficially  
-**pass the buck** - to shift responsibility to someone else  
-**pay through the nose** - to pay an excessive amount for something  
-**play it by ear** - to handle a situation without a fixed plan  
-**pull someone's leg** - to tease or joke with someone  
-**pull the plug** - to stop or prevent something from continuing  
-**put all eggs in one basket** - to risk everything on a single venture  
-**put the cart before the horse** - to do things in the wrong order  
-**put your best foot forward** - to make the best possible effort  
-**rain cats and dogs** - to rain very heavily  
-**read between the lines** - to understand the hidden meaning  
-**rest on one's laurels** - to be complacent with past achievements  
-**right up somebody's street** - exactly suited to someone's interests or skills  
-**ring a bell** - to sound familiar or trigger a memory  
-**rock the boat** - to cause trouble or disrupt a stable situation  
-**rub salt in the wound** - to make a bad situation worse  
-**rule of thumb** - a general guideline based on experience  
-**see eye to eye** - to agree completely with someone  
-**send a shiver down the spine** - to cause intense fear, excitement, or thrill  
-**set the cat among the pigeons** - to cause trouble or controversy  
-**sit on the fence** - to remain neutral and avoid taking sides  
-**smell a rat** - to suspect something is wrong or deceitful  
-**spill the beans** - to reveal a secret or confidential information  
-**steal someone's thunder** - to take attention or credit away from someone  
-**straight from the horse's mouth** - directly from the original source  
-**strain every nerve** - to make a great effort to achieve something  
-**take the bull by the horns** - to face a problem directly and boldly  
-**take with a pinch of salt** - to not fully believe or trust something  
-**tempest in a teapot** - a big fuss over something unimportant  
-**the ball is in your court** - it's your turn to take action or decide  
-**the best of both worlds** - enjoying the advantages of two different things  
-**the last straw** - the final problem that makes a situation unbearable  
-**the tip of the iceberg** - a small part of a much larger problem  
-**through thick and thin** - through all difficulties and good times  
-**throw in the towel** - to give up or admit defeat  
-**throw someone a curveball** - to present an unexpected challenge or disruption  
-**to be on cloud seven** - to be extremely happy or blissful  
-**to bite the hand that feeds you** - to harm someone who helps you  
-**to break the bank** - to use up all one's money  
-**to call it a day** - to stop working or end an activity  
-**to cut one's losses** - to stop a failing activity to minimize further loss  
-**to draw a line in the sand** - to set a clear limit or boundary  
-**to eat one's words** - to retract or admit being wrong about something  
-**to get the hang of it** - to learn how to do something well  
-**to go to pot** - to deteriorate or fall into ruin  
-**to have an axe to grind** - to have a personal motive or grievance  
-**to hit the ground running** - to start something quickly and effectively  
-**to keep something under wraps** - to keep something secret  
-**to let the genie out of the bottle** - to cause irreversible consequences  
-**to pull strings** - to use influence to achieve something  
-**to put a spoke in someone's wheel** - to hinder someone's plans  
-**to take the wind out of someone's sails** - to undermine someone's confidence  
-**to throw caution to the wind** - to act recklessly without worrying about risks  
-**to turn over a new leaf** - to start behaving in a better way  
-**to wear two hats** - to have two different roles or responsibilities  
-**to whet one's appetite** - to arouse interest or desire, often for something  
-**try every trick in the book** - to use every possible method to achieve something  
-**turn a blind eye** - to deliberately ignore something wrong  
-**under the weather** - feeling ill or unwell  
-**up in arms** - very angry and ready to protest  
-**up to the mark** - meeting the required standard or quality  
-**wear your heart on your sleeve** - to openly show one's emotions  
-**when pigs fly** - something that will never happen  
-**wild card** - an unpredictable or unexpected factor  
-**yellow streak** - showing cowardice or lack of bravery  
-**your guess is as good as mine** - to have no idea or certain knowledge about something
+a bad egg - a person who is unreliable or morally bad  
+a barking dog seldom bites - someone who makes threats rarely acts on them  
+a bird in the hand is worth two in the bush - value what you have rather than risk losing it  
+a black sheep - an unlucky person or someone of bad character  
+a blessing in disguise - something that seems bad but turns out to be good  
+a bolt from the blue - something unexpected or surprising  
+a chip off the old block - someone who resembles their parent in character  
+a chip on the shoulder - holding a grudge or feeling resentful  
+a clean slate - a fresh start without past mistakes or debts  
+a cock and bull story - an unbelievable or absurd tale  
+a couch potato - someone who is very lazy and spends time watching TV  
+a dime a dozen - very common and of little value  
+a drop in the bucket - a small, insignificant amount compared to what's needed  
+a fair-weather friend - someone who is only supportive in good times  
+a fish out of water - feeling uncomfortable in an unfamiliar situation  
+a flash in the pan - something that shows promise but fails to last  
+a fool's paradise - a state of happiness based on false hopes  
+a hard nut to crack - a difficult problem  
+a hot potato - a controversial or difficult issue that people avoid  
+a house of cards - a weak or unstable plan  
+a leopard can't change its spots - people cannot change their basic nature  
+a man of straw - a person with no voice or will of their own  
+a needle in a haystack - something very difficult to find  
+a piece of cake - something very easy to do  
+a shot in a arm - something that has a sudden, strong, positive effect  
+a stone's throw - a very short distance  
+a storm in a teacup - a big fuss over something unimportant  
+a thorn in the flesh - a constant source of annoyance  
+a white elephant - an expensive but useless possession  
+a wolf in sheep's clothing - someone who hides harmful intentions behind a kind facade  
+achilles' heel - a small but fatal weakness  
+acid test - a critical test  
+add fuel to the fire - to make a bad situation worse  
+add insult to injury - to make a bad situation worse  
+all at sea - completely confused  
+all bark and no bite - someone who threatens but doesn't act  
+all ears - listening eagerly and attentively  
+all in all - most important or altogether  
+all in the same boat - facing the same challenges or situation  
+an arm and a leg - extremely expensive  
+an arm chair job - an easy and comfortable job  
+an eye for an eye - tit for tat  
+an iron will - strong willpower  
+an old flame - a past romantic relationship  
+an olive branch - a peace offering  
+apple of discord - a matter of dispute  
+apple of one's eye - someone or something cherished above others  
+apple pie order - in perfect order  
+at a loss - unable to decide  
+at a pinch - in trouble  
+at a snail's pace - moving very slowly  
+at arm's length - avoiding becoming too friendly  
+at daggers drawn - having bitter enmity  
+at ease - free from pain and anxiety  
+at home - comfortable  
+at loggerheads - in strong disagreement or conflict  
+at once - instantly or at the same time  
+at one's beck and call - under one's control  
+at one's finger ends - having complete knowledge  
+at one's wits' end - puzzled or confused  
+at sixes and sevens - in disorder  
+at stake - at risk or insecure  
+at the drop of a hat - immediately, without hesitation  
+at the eleventh hour - at the last moment  
+axe out - to remove or eliminate  
+back and forth - backward and forward  
+back stair gossip - unfair talk or rumors  
+back to square one - returning to the starting point after a failure  
+back to the wall - in a desperate or difficult situation with no escape  
+bad blood - enmity or bitter relations  
+bag and baggage - with all belongings  
+baker's dozen - thirteen in number  
+bark up the wrong tree - to make a mistake about a person or situation  
+be born with a silver spoon in one's mouth - to be born in a rich family  
+be in the driving seat - bearing all responsibilities  
+be nipped in the bud - to destroy something in the very beginning  
+bear the brunt of - to bear the main part of something unpleasant  
+bear the palm - to be the winner or achieve victory  
+beat about the bush - to talk in a roundabout manner  
+beat black and blue - to beat mercilessly  
+beat hollow - to beat thoroughly and convincingly  
+beat the drum - to promote or support something enthusiastically  
+beat the record - to do better than ever before  
+bed of roses - a pleasant situation of comfort  
+bed of thorns - a situation of extreme difficulty  
+bee in one’s bonnet - to be crazy about something  
+beggar description - beyond description  
+behind closed doors - in private  
+behind the scenes - happening secretly or not publicly visible  
+bell the cat - taking the first step at personal risk  
+between a rock and a hard place - facing two difficult choices  
+between scylla and charybdis - between two difficult situations  
+between the cup and the lips - failing at the last moment before success  
+between the devil and the deep sea - between two difficult situations  
+big gun - an influential person  
+bird of passage - one who comes occasionally  
+bird's eye view - an overview  
+birds of a feather - people with the same ideas or interests  
+birds of a feather flock together - similar people stick together  
+bite off more than one can chew - to take on a task too big  
+bite one's lips - to control one’s anger  
+bite the bullet - to endure a painful or difficult situation bravely  
+bite the dust - to fail or die  
+bite the hand that feeds you - to harm someone who helps you  
+blind alley - a situation in which no further progress can be made  
+blind date - a meeting between two people who have not met before  
+blow hot and cold - to be inconsistent in opinions or actions  
+blow off steam - to release pent-up emotions  
+blow one's own trumpet - to boast about one's achievements  
+blue blood - royal or aristocratic descent  
+blue book - a government report  
+body and soul - entirely  
+bone of contention - a subject of dispute  
+bosom friend - a close friend  
+bread and butter - material welfare  
+break a leg - a way to wish someone good luck, especially in performance  
+break the bank - to spend too much money  
+break the ice - to start a conversation in an awkward situation  
+breathe one's last - to pass away or die  
+bricks and mortar - buildings  
+bring home - to convince  
+bring to light - to disclose  
+broad daylight - in daylight when crime cannot be hidden  
+broken reed - a weak, unreliable person  
+brown study - a state of deep thought  
+bull in a china shop - one who is out of place in a delicate situation  
+burn a hole in the pocket - money spent quickly  
+burn one's boats - to go back on a decision  
+burn one's fingers - to get oneself into trouble  
+burn the bridges - to destroy all possible ways of retreat  
+burn the candle at both ends - to work very hard, staying up late and rising early  
+burn the midnight oil - to work late into the night  
+burning question - an important topic or hot issue  
+bury the hatchet - to end a conflict and make peace  
+by and by - slowly  
+by fits and starts - irregularly or sporadically  
+by hook or by crook - by any means necessary, fair or unfair  
+by leaps and bounds - at a rapid pace  
+by long odds - by a great difference  
+by the book - according to rules  
+by the skin of one's teeth - narrowly or by a hair’s breadth  
+call a spade a spade - to speak plainly and truthfully, even if unpleasant  
+call it a day - to stop working for the day  
+carry the day - to win or succeed in a contest or situation  
+cast a slur - to bring discredit or dishonor  
+cast pearls before swine - to offer something valuable to those who don't appreciate it  
+castles in the air - daydreaming or imagining unattainable plans  
+catch someone red-handed - caught in the act of doing something wrong  
+change horses in midstream - to change plans or leaders in the middle of an action  
+chase your tail - to be busy doing a lot but achieving very little  
+chew the fat - to have a casual conversation  
+chicken-hearted - cowardly  
+chip on one’s shoulder - to be ready to be offended or to fight  
+close-fisted - miserly  
+cold shoulder - to ignore someone deliberately  
+come off with flying colours - to succeed brilliantly  
+come to light - to become known  
+come what may - happen what will  
+cross the rubicon - to take an irreversible step or decision  
+cry for the moon - to ask for the impossible  
+cry over spilt milk - to regret something that cannot be changed  
+cut a sorry figure - to create a bad impression  
+cut corners - to do something cheaply or quickly, often poorly  
+cut no ice - to have no influence  
+cut one's coat according to one's cloth - to live within one's means  
+cut short - to abbreviate  
+cut the ground from under feet - to weaken someone's position or argument  
+cut to the chase - to get to the point without wasting time  
+dead against - completely opposed  
+decke up - to put on special clothes to appear attractive  
+deliver the goods - to meet expectations or do what is promised  
+die in harness - to die while still in service  
+dig one's own grave - to cause one's own downfall  
+do a double take - to look again in surprise at something unexpected  
+dog in the manger - one who prevents others from using something he doesn't need  
+doing the rounds - being passed from one person to another  
+don't count your chickens before they hatch - don't assume success until it happens  
+don't judge a book by its cover - don't judge someone based on appearance  
+down to earth - practical and humble  
+down to the wire - until the very last moment or deadline  
+draw a blank - to fail to remember or find something  
+draw a line in the sand - to set a clear limit or boundary  
+draw the line - to set a limit  
+drive home - to emphasize  
+dutch courage - false courage from alcohol  
+eat humble pie - to admit one's mistake and apologize  
+eat one's words - to retract or admit being wrong about something  
+elbow room - space or freedom to move or act  
+end in smoke - to fail  
+every cloud has a silver lining - every bad situation has a positive aspect  
+eyesore - an unpleasant sight  
+face the music - to accept the consequences of one's actions  
+fair and square - with honesty  
+fall by the wayside - to fail to persist or continue  
+feather in one's cap - an achievement to be proud of  
+feel the pinch - to experience financial hardship  
+fight tooth and nail - to try very hard to achieve something  
+fit as a fiddle - in very good health  
+flesh and blood - one’s close relative or kin  
+fly off the handle - to suddenly become very angry  
+fool's paradise - a false sense of happiness  
+french leave - absence without permission  
+from hand to mouth - to live with only basic needs  
+get a taste of your own medicine - to experience what you've done to others  
+get cold feet - to become nervous and back out of something  
+get into hot water - to get into trouble  
+get out of hand - to become uncontrollable or chaotic  
+get the ball rolling - to start a process or activity  
+get the better of - to defeat or overcome  
+get the hang of - to understand how to do something  
+get wind of - to get secret information  
+gift of the gab - talent for speaking fluently  
+give a slip - to escape or get away from someone  
+give a wide berth - to avoid someone or something  
+give and take - mutual adjustment  
+give it a shot - to try something  
+give someone the benefit of the doubt - to believe someone without proof against them  
+give the cold shoulder - to deliberately ignore or treat coldly  
+go against the grain - to oppose natural tendencies  
+go down in flames - to fail spectacularly  
+go the extra mile - to do more than expected  
+go to the dogs - to deteriorate or fall into ruin  
+go to the wall - to be ruined or destroyed  
+grasp the nettle - to face a difficult situation boldly  
+green with envy - extremely jealous  
+hale and hearty - healthy and fit  
+hand in glove - in secret partnership  
+hand to mouth - barely managing one’s needs  
+hang in the balance - to be undecided  
+hard and fast rule - a fixed rule  
+harp on the same string - to repeat the same thing  
+have a finger in every pie - to be involved in many activities  
+have an axe to grind - to have a personal motive or grievance  
+head and shoulders above - much superior  
+heap coals of fire - to return good for evil  
+herculean task - a task requiring great effort  
+hill to die on - an issue or opinion you intend to defend strongly  
+hit below the belt - to act unfairly or cruelly  
+hit the books - to begin studying seriously  
+hit the jackpot - to achieve sudden success or gain a large reward  
+hit the nail on the head - to describe or do something exactly right  
+hit the sack - to go to bed  
+hold good - to be valid or applicable  
+hold water - to be logical  
+hold your horses - to wait or be patient  
+hue and cry - a loud protest or outcry  
+hush money - a bribe given to keep someone silent  
+ignorance is bliss - being unaware of something unpleasant avoids worry  
+in a fix - in a difficult situation  
+in a nutshell - summarized briefly and clearly  
+in black and white - in written form  
+in cold blood - without emotion or pity  
+in high spirits - very cheerful or excited  
+in hot water - in trouble or facing difficulties  
+in the black - financially profitable or solvent  
+in the blues - feeling sad or depressed  
+in the doghouse - in trouble or disfavor with someone  
+in the doldrums - in a low or inactive state  
+in the limelight - receiving a lot of public attention  
+in the nick of time - just before it's too late  
+in the same breath - saying two contradictory things at once  
+in the soup - in a difficult situation  
+iron hand - strict control  
+it takes two to tango - both parties are equally responsible  
+jack of all trades - a person who can do many things but is not an expert in any  
+jump on the bandwagon - to join a popular trend or activity  
+jump the gun - to act prematurely or too soon  
+keep an eye on - to watch or monitor closely  
+keep body and soul together - to survive with basic needs  
+keep one's finger on the pulse - to stay aware of recent developments  
+keep someone at arm’s length - to avoid close contact  
+keep the wolf from the door - to avoid poverty or hunger  
+keep your cool - to stay calm  
+kick the bucket - to die  
+kill two birds with one stone - to achieve two goals with one action  
+know the ropes - to understand how things work  
+lame excuse - a weak or unconvincing excuse  
+laughing stock - a person who is ridiculed  
+lay bare - to reveal or expose  
+leave no stone unturned - to try every possible course of action  
+leave someone in the lurch - to abandon someone in difficulty  
+let bygones be bygones - to forget past disagreements  
+let sleeping dogs lie - to avoid stirring up trouble  
+let the cat out of the bag - to reveal a secret or hidden fact  
+let the genie out of the bottle - to cause irreversible consequences  
+live and let live - to tolerate others' differences  
+lock horns - to get into a conflict  
+long and short - in summary  
+look a gift horse in the mouth - to be ungrateful for a gift or opportunity  
+lose face - to be humiliated  
+make a clean breast of it - to confess fully and honestly  
+make a mountain out of a molehill - to exaggerate a minor issue  
+make both ends meet - to live within one’s income  
+make ends meet - to manage financially with limited resources  
+make hay while the sun shines - to take advantage of a favorable opportunity  
+make one’s blood boil - to make someone very angry  
+make up one's mind - to decide or reach a firm decision  
+mean business - to be serious about what you announce  
+meet one's waterloo - to face a final defeat  
+miss the boat - to miss an opportunity  
+move heaven and earth - to do everything possible  
+nip in the bud - to stop something at an early stage  
+no pain, no gain - success requires hard work and effort  
+not a bed of roses - not an easy or comfortable situation  
+not one’s cup of tea - not something one likes  
+null and void - not valid  
+off and on - occasionally  
+off the cuff - done without preparation; impromptu  
+off the record - not intended for public knowledge  
+on a wild goose chase - pursuing something that is unattainable  
+on cloud nine - extremely happy or elated  
+on cloud seven - to be extremely happy or blissful  
+on tenterhooks - in a state of suspense  
+on the ball - being alert and competent in one's work  
+on the cards - likely to happen  
+on the horns of a dilemma - facing two equally difficult choices  
+on the ropes - in a state of near defeat or failure  
+on the same page - to agree or understand each other  
+on thin ice - in a risky situation  
+once in a blue moon - very rarely  
+opening a can of worms - to create a complicated situation  
+out and out - completely or thoroughly  
+out of the blue - unexpectedly or without warning  
+out of the frying pan into the fire - from one problem to a worse one  
+out of sorts - slightly unwell or upset  
+out of the question - impossible  
+over and above - in addition to  
+over the moon - extremely happy or excited  
+paper over the cracks - to hide faults or difficulties superficially  
+part and parcel - an essential component  
+pass the buck - to shift responsibility to someone else  
+pay through the nose - to pay an excessive amount for something  
+pick holes - to find faults unnecessarily  
+play it by ear - to handle a situation without a fixed plan  
+play second fiddle - to be in a subordinate position  
+play with fire - to take serious risks  
+pour oil on troubled waters - to calm a tense situation  
+practice makes perfect - consistent practice leads to improvement  
+pull out all the stops - to make every possible effort  
+pull someone's leg - to tease or joke with someone  
+pull strings - to use influence to achieve something  
+pull the plug - to stop or prevent something from continuing  
+put a spoke in someone's wheel - to hinder someone's plans  
+put all eggs in one basket - to risk everything on a single venture  
+put all your eggs in one basket - to risk everything on one option  
+put one's foot down - to take a firm stand  
+put the cart before the horse - to do things in the wrong order  
+put your best foot forward - to make the best possible effort  
+rain cats and dogs - to rain very heavily  
+read between the lines - to understand the hidden meaning  
+read someone like a book - to understand someone’s thoughts easily  
+rest on one's laurels - to be complacent with past achievements  
+right up somebody's street - exactly suited to someone's interests or skills  
+ring a bell - to sound familiar or trigger a memory  
+rise and shine - to wake up and get going  
+rock the boat - to cause trouble or disrupt a stable situation  
+rome was not built in a day - great things take time  
+rub salt in the wound - to make a bad situation worse  
+rule of thumb - a general guideline based on experience  
+run for one’s money - to offer strong competition  
+see eye to eye - to agree completely with someone  
+see through - to detect the true nature  
+send a shiver down the spine - to cause intense fear, excitement, or thrill  
+set the cat among the pigeons - to cause trouble or controversy  
+set the thames on fire - to do something remarkable  
+show a clean pair of heels - to run away quickly  
+sit on the fence - to remain neutral and avoid taking sides  
+smell a rat - to suspect something is wrong or deceitful  
+snake in the grass - a hidden enemy or traitor  
+sour grapes - to pretend something is bad because you can't have it  
+speak of the devil - someone appears while being talked about  
+speak volumes - to convey a lot without words  
+spill the beans - to reveal a secret or confidential information  
+spill the tea - to share gossip  
+square peg in a round hole - a misfit  
+stand one’s ground - to remain firm  
+steal someone's thunder - to take attention or credit away from someone  
+stick to one’s guns - to remain firm in one's position  
+storm in a teacup - a big fuss over something unimportant  
+straight from the horse's mouth - directly from the original source  
+strain every nerve - to make a great effort to achieve something  
+take a back seat - to give up control or responsibility  
+take a leaf out of someone's book - to imitate or follow someone’s example  
+take the bull by the horns - to face a problem directly and boldly  
+take to task - to scold or reprimand  
+take with a grain of salt - to not take something too seriously  
+take with a pinch of salt - to not fully believe or trust something  
+tall order - a difficult task  
+tempest in a teapot - a big fuss over something unimportant  
+the ball is in your court - it's your turn to take action or decide  
+the best of both worlds - enjoying the advantages of two different things  
+the last straw - the final problem that makes a situation unbearable  
+the tip of the iceberg - a small part of a much larger problem  
+through thick and thin - through all difficulties and good times  
+throw caution to the wind - to act recklessly without worrying about risks  
+throw in the towel - to give up or admit defeat  
+throw light on - to explain or clarify  
+throw someone a curveball - to present an unexpected challenge or disruption  
+tie the knot - to get married  
+time flies - time passes quickly  
+time is money - time is valuable  
+to be on cloud seven - to be extremely happy or blissful  
+to bite the hand that feeds you - to harm someone who helps you  
+to break the bank - to use up all one's money  
+to call it a day - to stop working or end an activity  
+to cut one's losses - to stop a failing activity to minimize further loss  
+to eat one's words - to retract or admit being wrong about something  
+to get the hang of it - to learn how to do something well  
+to go to pot - to deteriorate or fall into ruin  
+to have an axe to grind - to have a personal motive or grievance  
+to hit the ground running - to start something quickly and effectively  
+to keep something under wraps - to keep something secret  
+to let the genie out of the bottle - to cause irreversible consequences  
+to pull strings - to use influence to achieve something  
+to put a spoke in someone's wheel - to hinder someone's plans  
+to take the wind out of someone's sails - to undermine someone's confidence  
+to throw caution to the wind - to act recklessly without worrying about risks  
+to turn over a new leaf - to start behaving in a better way  
+to wear two hats - to have two different roles or responsibilities  
+to whet one's appetite - to arouse interest or desire, often for something  
+try every trick in the book - to use every possible method to achieve something  
+turn a blind eye - to deliberately ignore something wrong  
+turn a deaf ear - to ignore  
+turn over a new leaf - to reform or start fresh  
+turn the tables - to reverse the situation  
+under a cloud - under suspicion  
+under one’s nose - happening close by without being noticed  
+under the table - illegally or secretly  
+under the weather - feeling ill or unwell  
+up in arms - very angry and ready to protest  
+up to the mark - meeting the required standard or quality  
+ups and downs - good and bad times  
+vent one's spleen - to express anger  
+wait for the dust to settle - to wait until a situation becomes clear or calm  
+walking on air - extremely happy  
+wash one’s dirty linen in public - to discuss personal matters in public  
+wear and tear - damage from ordinary use  
+wear your heart on your sleeve - to openly show one's emotions  
+weather the storm - to survive a difficult situation  
+well off - rich or wealthy  
+when pigs fly - something that will never happen  
+whole bag of tricks - all the clever methods or resources one can use  
+wild card - an unpredictable or unexpected factor  
+wild-goose chase - a futile or hopeless search  
+win laurels - to earn praise  
+with open arms - warmly and happily  
+word of mouth - promotion through recommendations  
+work wonders - to produce excellent results  
+worm one's way into - to gradually gain someone's trust  
+worth one’s salt - competent or deserving respect  
+yellow streak - showing cowardice or lack of bravery  
+you can’t judge a book by its cover - appearances can be misleading  
+you don't say - used to express surprise or irony  
+your guess is as good as mine - to have no idea or certain knowledge about something  
+zero tolerance - no acceptance of misbehavior
