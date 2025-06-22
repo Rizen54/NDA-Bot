@@ -50,6 +50,11 @@ class HelpSelect(Select):
                 value="DMs you the message you replied to.\n**Usage**: Reply to a message with `/bookmark` or `-bookmark`",
                 inline=False
             )
+            embed.add_field(
+                name="🌟 quote",
+                value="Sends a quote to fill you with josh!\n**Usage**: `/quote` or `-quote`",
+                inline=False
+            )
 
         elif category == "vocab":
             embed.add_field(
@@ -240,6 +245,62 @@ class Misc(commands.Cog):
             embed = discord.Embed(
                 title="⚠️ Invalid format! Put in a number (1-9)",
                 color=discord.Color.red(),
+            )
+
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.followup.send(embed=embed)
+        else:
+            await interaction_or_ctx.reply(embed=embed)
+    
+    @commands.hybrid_command(name="quote", description="Gives a quote to fill you with josh!")
+    async def quote(self, interaction_or_ctx: Union[discord.Interaction, commands.Context]):
+        # Defer if slash command
+        if isinstance(interaction_or_ctx, discord.Interaction):
+            await interaction_or_ctx.response.defer()
+
+        quotes = [
+            "Which other academy gives you such a great life without blowing a mars sized hole in your dad's pocket?",
+            "Comfort is a civilian's luxury. We trade it for glory.",
+            "We don't wait for chances. We train till we earn them.",
+            "Sleep is a weapon - and we choose when to reload.",
+            "Pain is a visitor. Pride is permanent.",
+            "You don't become a warrior by shouting loud. You become one by showing up when others back down.",
+            "In the land of the brave, medals aren't given - they're taken.",
+            "You have two choices every morning: stay in bed and dream, or wake up and chase that damn dream down.",
+            "Discipline: doing what needs to be done, even when no one is watching, and you're dead tired.",
+            "When you pass the NDA gate, you don't enter a campus - you step into history.",
+            "While others party on weekends, warriors are forged in sweat.",
+            "We don't fear the storm. We are the reason the storm changes course.",
+            "Train like hell. So your enemy meets heaven faster.",
+            "This isn't for everyone. That's exactly why you're doing it.",
+            "Your body will scream to stop. That's when your soul will answer - 'not yet.'",
+            "Excuses don't get saluted. Effort does.",
+            "If you're scared of a 5 AM wake-up, you're not ready for a 0500 strike.",
+            "No backup plan. No plan B. Only mission accomplished.",
+            "You either break records, or you break yourself trying.",
+            "Not everyone gets to wear the tricolor on their chest. Some of us earn that right.",
+            "We do more before sunrise than most people do in a day.",
+            "It's not just training. It's war with the weaker version of yourself.",
+            "You don't need motivation when you've got a mission.",
+            "While others fear the dark, we operate in it.",
+            "Some train for the mirror. We train for the battlefield.",
+            "The only easy day was yesterday - and even that wasn't easy.",
+            "Fall in love with the grind, or fall behind.",
+            "Failure isn't falling down. It's staying down.",
+            "There are no shortcuts to the parade ground.",
+            "We don't quit when we're tired. We quit when we're done.",
+            "In NDA, your limits aren't broken—they're redefined.",
+            "When your legs give up, march with your mind.",
+            "You don't get chosen. You become undeniable.",
+            "Weakness checked in. Strength checked out.",
+            "You want comfort? Join a club. You want glory? Join the forces.",
+            "The road to the uniform is paved with broken egos and forged wills.",
+            "You won't just earn a rank. You'll earn a legacy."
+        ]
+
+        embed = discord.Embed(
+            title=choice(quotes),
+            color=discord.Color.red(),
             )
 
         if isinstance(interaction_or_ctx, discord.Interaction):

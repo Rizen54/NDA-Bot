@@ -12,6 +12,7 @@ allude/elude - indirectly refer/escape or avoid
 allowed/aloud - permitted/spoken audibly  
 altar/alter - religious table/to change  
 ant/aunt - insect/parent's sister  
+amend/emend - to edit something/to edit textual content specifically
 arc/ark - curve/Noah's boat  
 assent/ascent - agreement/upward movement  
 assure/ensure/insure - promise positively/make certain/provide insurance  
