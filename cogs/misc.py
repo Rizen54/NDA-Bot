@@ -372,6 +372,7 @@ class Misc(commands.Cog):
                 "[In Her Defence](https://amzn.in/d/ayxrKdO)\n"
                 "[Boots Belts Berets](https://amzn.in/d/1Nr6lAI)\n"
                 "[Hero of The Tiger Hill](https://amzn.in/d/fz2BTnq)\n"
+                "[One Day You'll Find Yourself (A book on etiquette)](https://www.onedayyoullfindyourself.com/)\n"
             ),
             inline=False,
         )
