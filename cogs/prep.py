@@ -389,7 +389,8 @@ class Prep(commands.Cog):
                 "[Official UPSC PDFs](https://upsc.gov.in/examinations/previous-question-papers/archives?field_exam_name_value=National%20Defence%20Academy)\n"
                 "[SelfStudys (Online Mock Tests - 54 Papers)](https://www.mockers.in/exam/nda-mock-test)\n"
                 "[StudyIQ (PDFs - 20 Papers)](https://www.studyiq.com/articles/nda-previous-year-question-papers/)\n"
-                "[Chapter-wise All subj pyqs Self Studys](https://www.selfstudys.com/books/nda-previous-year-paper/english/chapter-wise)"
+                "[Chapter-wise All subj pyqs Self Studys](https://www.selfstudys.com/books/nda-previous-year-paper/english/chapter-wise)\n"
+                "[angryneighbourhoodracist's Google drive (NDA PYP PDFs 2015 to 2025)](https://drive.google.com/drive/folders/16-gIpkcqRTsXj-xk0eRVYfMd4iXmRTcF?usp=sharing)\n"
             ),
             inline=False,
         )
