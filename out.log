@@ -1,0 +1,19 @@
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-07-04 19:40:28] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+[2025-07-04 19:40:30] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 7b4290b601c1d74d7456358e014fa946).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 7b4290b601c1d74d7456358e014fa946).
+WARNING:discord.client:PyNaCl is not installed, voice will NOT be supported
+[2025-07-04 19:40:45] [INFO    ] discord.client: logging in using static token
+INFO:discord.client:logging in using static token
+Loading cogs...
+✅ prep
+✅ moderation
+✅ misc
+[2025-07-04 19:40:47] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 829883e2f768b3062e9f76f21cec31db).
+INFO:discord.gateway:Shard ID None has connected to Gateway (Session ID: 829883e2f768b3062e9f76f21cec31db).
+Currently loaded cogs:
+ - cogs.prep
+ - cogs.moderation
+ - cogs.misc
+✅ Logged in as NDA Bot (ID: 1373940971473080350)

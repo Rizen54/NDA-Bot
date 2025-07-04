@@ -156,4 +156,8 @@ async def on_command_error(ctx, error):
         raise error  # For unexpected errors, raise normally
 
 
-bot.run(token)
+try:
+    bot.run(token)
+except (discord.ConnectionClosed, discord.HTTPException, asyncio.TimeoutError) as e:
+    print(f"Bot crashed due to connection issue: {e}")
+    sys.exit(1)  # This triggers systemd to restart it
